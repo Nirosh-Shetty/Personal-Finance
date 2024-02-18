@@ -20,5 +20,3 @@ app.use("/api/auth", authRoutes);
 app.listen(port, () => {
   console.log(`APP is running at port ${port}`);
 });
-
-// testin
