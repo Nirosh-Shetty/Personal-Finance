@@ -1,10 +1,12 @@
-import Pool from ("pg").Pool;
+import pkg from "pg";
+const { Pool } = pkg;
+
 const pool = new Pool({
-  user: "postgres",
-  password: "00000000",
+  user: "your_postgres_user",
+  password: "your_postgres_password",
   host: "localhost",
   port: 5432,
-  database: "MoneyManager",
+  database: "your_database_name",
 });
 
-module.exports = pool;
+export default pool;
