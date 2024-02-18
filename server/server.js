@@ -1,6 +1,6 @@
 import express from "express";
 const app = express();
-import authRoutes from "./routes/authRoutes.js";
+import routes from "./routes/index.js";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
@@ -11,7 +11,7 @@ app.use(express.json());
 dotenv.config();
 const port = process.env.PORT || 8000;
 
-app.use("/api/auth", authRoutes);
+app.use(routes);
 // app.post("/api/auth/login", (req, res) => {
 //   res.status(200).send("login done");
 // });
