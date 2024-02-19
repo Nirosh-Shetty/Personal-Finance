@@ -29,7 +29,7 @@ export default function SignIn() {
     };
 
     //handling fetch api
-    fetch("/api/auth/login", {
+    fetch("http://localhost:8000/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

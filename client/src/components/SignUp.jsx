@@ -30,10 +30,21 @@ const SignUp = () => {
     setCurrentStep(currentStep - 1);
   };
 
+  // const passwordMatch = () => {
+  //   if (formData.password === formData.confirmPassword) 
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission here, e.g., send data to a server
-    console.log(formData);
+    fetch("http://localhost:8000/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+    // console.log(formData);
   };
 
   return (
@@ -159,6 +170,10 @@ const SignUp = () => {
                 Submit
               </button>
             </span>
+            {/* For remarks */}
+            <div class="remark">
+            affsfsaf
+            </div>
           </div>
         )}
       </form>
