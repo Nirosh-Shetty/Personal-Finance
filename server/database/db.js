@@ -2,11 +2,11 @@ import pkg from "pg";
 const { Pool } = pkg;
 
 const pool = new Pool({
-  user: "your_postgres_user",
-  password: "your_postgres_password",
-  host: "localhost",
-  port: 5432,
-  database: "your_database_name",
+  "user": "postgres",
+  "password": "00000000",
+  "host": "localhost",
+  "port": 5432,
+  "database": "MoneyManager"
 });
 
 export default pool;

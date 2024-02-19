@@ -46,3 +46,8 @@ button:hover {
 h2 {
   margin-bottom: 10px;
 }
+
+/* styling for remark div */
+.remark{
+  color:red;
+}
