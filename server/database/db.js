@@ -10,3 +10,8 @@ const pool = new Pool({
 });
 
 export default pool;
+
+//user db
+//incmome db
+//expense db
+//catagories db

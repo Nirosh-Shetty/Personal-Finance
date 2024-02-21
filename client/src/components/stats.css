@@ -1,0 +1,22 @@
+.switch-btn button {
+  width: 45%;
+  border: none;
+  border-radius: 10px;
+  margin: 10px;
+  font-family: sans-serif;
+  color: rgb(255, 255, 255);
+  text-transform: uppercase;
+}
+.switch-btn button:hover {
+  box-shadow: 0px 0px 8px 0.1px rgba(87, 87, 87, 0.119);
+  background: rgb(208, 208, 208);
+  /* border: 1px solid rgba(66, 66, 66, 0.438); */
+  color: rgb(0, 0, 0);
+}
+
+.income {
+  background: green;
+}
+.expense {
+  background: rgb(179, 0, 0);
+}
