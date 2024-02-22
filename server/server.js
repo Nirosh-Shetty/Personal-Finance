@@ -7,20 +7,14 @@ import cors from "cors";
 import pool from "./database/db.js"
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-  cors({
-    origin: "http://localhost:5173/",
-  })
-);
+app.use(cors());
 app.use(express.json());
 dotenv.config();
 const port = process.env.PORT || 8000;
 let index = null;
 
 app.use(routes);
-// app.post("/api/auth/login", (req, res) => {
-//   res.status(200).send("login done");
-// });
+
 
 
 
@@ -45,12 +39,14 @@ app.post("/signup",async (req,res)=>{
 
 app.post("/signin",async (req,res)=>{
   const {email,password} = req.body;
+  console.log(password);
  const value = await pool.query(`SELECT EXISTS(SELECT 1 FROM signup WHERE userpassword=$1)`,[password]);
  console.log(value.rows[0].exists);
 //  if (value.rows[0].exists)
 //  { 
 // }
 index = await pool.query(`SELECT userid FROM signup WHERE userpassword=$1`,[password]);
+index = index.rows[0].userid;
 console.log(index);
 });
 
