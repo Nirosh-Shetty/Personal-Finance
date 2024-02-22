@@ -6,7 +6,7 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import Profile from "./components/Profile";
 import SideNavbar from "./components/SideNavbar";
-import Stats from "./components/Stats";
+import Stats from "./components/Stats/Stats";
 
 import "./App.css";
 const App = () => {

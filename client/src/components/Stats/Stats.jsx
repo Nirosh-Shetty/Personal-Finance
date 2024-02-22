@@ -1,7 +1,8 @@
 import { Doughnut } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import "./stats.css";
-export default function PieChart() {
+import Graphs from "./Graphs";
+export default function Stats() {
   const data = {
     labels: ["Go", "Python", "Kotlin", "JavaScript", "R", "Swift"],
     datasets: [
@@ -47,14 +48,15 @@ export default function PieChart() {
   };
 
   return (
-    <div className="margin-left">
-      <div className="switch-btn">
-        <button className="income">Income</button>
-        <button className="expense">Expense</button>
-      </div>
-      <div style={{ width: 250, textAlign: "center" }}>
-        <Doughnut data={data} width={50} height={50} options={options} />
-      </div>
+    <div className="margin-left stats-container">
+      <button className="income">Total</button>
+      <button className="income">Income</button>
+      <button className="expense">Expense</button>
+      <div className="most-trans">most transaction</div>
+      <div className="line-chart">line chart</div>
+      <Graphs />
+      <div className="percentage">percentage</div>
+      <div className="long-chart">long chat</div>
     </div>
   );
 }
