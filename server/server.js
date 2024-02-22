@@ -11,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 dotenv.config();
 const port = process.env.PORT || 8000;
+let index = null;
 
 app.use(routes);
 // app.post("/api/auth/login", (req, res) => {
@@ -38,10 +39,16 @@ app.post("/signup",async (req,res)=>{
    );
 })
 
-// app.post("/signin",async (req,res)=>{
-//   const {email,password} = req.body;
-//   await pool.query();
-// });
+app.post("/signin",async (req,res)=>{
+  const {email,password} = req.body;
+ const value = await pool.query(`SELECT EXISTS(SELECT 1 FROM signup WHERE userpassword=$1)`,[password]);
+ console.log(value.rows[0].exists);
+//  if (value.rows[0].exists)
+//  { 
+// }
+index = await pool.query(`SELECT userid FROM signup WHERE userpassword=$1`,[password]);
+console.log(index);
+});
 
 
 
