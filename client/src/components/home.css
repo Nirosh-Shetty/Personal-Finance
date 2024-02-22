@@ -1,1 +1,20 @@
+.multistep-form {
+    max-width: 400px;
+    padding: 20px;
+    margin: auto;
+    backdrop-filter: blur(8px);
+    margin-top: 10vh;
+    box-shadow: 0 0 10px 2px rgb(180, 180, 180);
+    border-radius: 10px;
+  }
+
+.step {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  
+
 
