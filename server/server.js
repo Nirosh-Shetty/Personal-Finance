@@ -7,7 +7,11 @@ import cors from "cors";
 import pool from "./database/db.js"
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173/",
+  })
+);
 app.use(express.json());
 dotenv.config();
 const port = process.env.PORT || 8000;

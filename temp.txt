@@ -1,0 +1,132 @@
+import DonutSmallIcon from "@mui/icons-material/DonutSmall";
+import Person2Icon from "@mui/icons-material/Person2";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp"; // signout
+import RssFeedIcon from "@mui/icons-material/RssFeed"; // blog
+import HomeIcon from "@mui/icons-material/Home"; // home
+import "./sideNavbar.css";
+import React, { useRef } from "react";
+
+const SideNavbar = () => {
+  const sidebarRef = useRef();
+  const toggleSidebar = () => {
+    sidebarRef.current.classList.toggle("active");
+  };
+
+  // var mini = true;
+  // function toggleSidebar() {
+  //   if (mini) {
+  //     console.log("opening sidebar");
+  //     sidebarRef.current.classList.toggle("active");
+  //     // document.getElementById("mySidebar").style.width = "250px";
+  //     // document.getElementById("main").style.marginLeft = "250px";
+  //     this.mini = false;
+  //   } else {
+  //     console.log("closing sidebar");
+  //     // document.getElementById("mySidebar").style.;
+  //     // document.getElementById("main").style.;
+  //     this.mini = true;
+  //   }
+  // }
+  // };
+
+  return (
+    <>
+      <div
+        id="mySidebar"
+        className="sidebar"
+        ref={sidebarRef}
+        onMouseOver={toggleSidebar}
+        onMouseOut={toggleSidebar}
+      >
+        <a href="#">
+          <HomeIcon className="material-icons" />
+          <span className="icon-text">Home</span>
+        </a>
+        <br />
+        <a href="#">
+          <DonutSmallIcon className="material-icons" />
+          <span className="icon-text">Stats</span>
+        </a>
+        <br />
+        <a href="#">
+          <RssFeedIcon className="material-icons" />
+          <span className="icon-text">Blog</span>
+        </a>
+        <br />
+        <a href="#">
+          <Person2Icon className="material-icons" />
+          <span className="icon-text">Profile</span>
+        </a>
+      </div>
+    </>
+  );
+
+export default SideNavbar;
+
+
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidebar {
+  height: 100%;
+  width: 75px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  transition: 0.5s;
+  overflow-x: hidden;
+  padding-top: 60px;
+  white-space: nowrap;
+  /* margin-left: 85px; */
+  width: 85px;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+/* 
+main .sidebar {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+} */
+
+.material-icons,
+.icon-text {
+  vertical-align: middle;
+}
+
+.material-icons {
+  padding-bottom: 3px;
+  margin-right: 30px;
+  scale: 2;
+}
+
+@media screen and (max-height: 450px) {
+  .sidebar {
+    padding-top: 15px;
+  }
+  .sidebar a {
+    font-size: 18px;
+  }
+}
+
+.active {
+  /* margin-left: 250px; */
+  width: 250px;
+}
