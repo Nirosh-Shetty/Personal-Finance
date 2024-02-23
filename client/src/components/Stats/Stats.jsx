@@ -4,6 +4,7 @@ import "./stats.css";
 import LineChart from "./LineChart";
 import PieChart from "./PieChart";
 import PercentageChat from "./PercentageChat";
+import Insights from "./Insights";
 export default function Stats() {
   return (
     <div className="margin-left stats-container">
@@ -17,7 +18,9 @@ export default function Stats() {
         ₹346346<span className="amount-type">Expense</span>
       </button>
 
-      <div className="most-trans">Insights</div>
+      <div className="insights">
+        <Insights />
+      </div>
       <div className="line-chart">
         <LineChart />
       </div>
@@ -27,7 +30,9 @@ export default function Stats() {
       <div className="percentage">
         <PercentageChat />
       </div>
-      <div className="long-chart">long chat</div>
+      {/* <div className="long-chart">
+        <BarChart />
+      </div> */}
     </div>
   );
 }

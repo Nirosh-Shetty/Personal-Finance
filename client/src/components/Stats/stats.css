@@ -69,6 +69,25 @@
   font-style: normal;
 }
 
+/* insights */
+.insights {
+  grid-row-start: 2;
+  grid-row-end: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.insights > * {
+  background: #ffffff;
+  border-radius: 5px;
+  width: 90%;
+  height: 31%;
+}
+
 /* line chart */
 .line-chart {
   grid-column-start: 2;
