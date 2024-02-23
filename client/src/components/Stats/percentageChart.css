@@ -1,0 +1,31 @@
+.percentage-comp {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.show-percentage {
+  background: #000;
+  border-radius: 4px;
+  width: 40px;
+  height: 23px;
+  text-align: center;
+  font-size: 1rem;
+  color: white;
+  padding: 5px;
+  margin: 0px 8px 0px 5px;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 14px;
+}
+
+.right {
+}
+
+percent-comp-contain {
+  overflow: hidden;
+}

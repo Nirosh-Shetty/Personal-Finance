@@ -4,7 +4,7 @@ import React from "react";
 
 const Profile = () => {
   return (
-    <div className="container bootstrap snippets bootdey">
+    <div className="container bootstrap snippets bootdey margin-left">
       <div className="row">
         <div className="profile-nav col-md-3">
           <div className="panel">
@@ -22,7 +22,6 @@ const Profile = () => {
             <ul className="nav nav-pills nav-stacked">
               <li className="active">
                 <a href="#">
-                  {" "}
                   <i className="fa fa-user"></i> Profile
                 </a>
               </li>

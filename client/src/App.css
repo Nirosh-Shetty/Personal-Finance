@@ -1,4 +1,12 @@
 /* utilities */
+*::-webkit-scrollbar {
+  display: none;
+}
 .margin-left {
-  margin-left: 100px;
+  margin-left: 80px;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
 }

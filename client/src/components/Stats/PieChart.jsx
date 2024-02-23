@@ -2,7 +2,7 @@ import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 
-const Graphs = () => {
+const PieChart = () => {
   const data = {
     labels: ["Go", "Python", "Kotlin", "JavaScript", "R", "Swift"],
     datasets: [
@@ -55,4 +55,4 @@ const Graphs = () => {
   );
 };
 
-export default Graphs;
+export default PieChart;

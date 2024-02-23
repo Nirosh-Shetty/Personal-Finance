@@ -25,13 +25,13 @@ const SideNavbar = () => {
         <ExpandLessIcon />
       </div> */}
         <div className="navbar-top">
-          <Link className="navbar-content">
+          <Link to={"/"} className="navbar-content">
             <span>
               <HomeIcon className="navbar-icons" />
             </span>
             <span className="navbar-text">Home</span>
           </Link>
-          <Link className="navbar-content">
+          <Link to={"/stats"} className="navbar-content">
             <DonutSmallIcon className="navbar-icons" />
             <span className="navbar-text">Stats</span>
           </Link>
@@ -45,7 +45,7 @@ const SideNavbar = () => {
             <ExitToAppIcon className="navbar-icons" />
             <span className="navbar-text">Signout</span>
           </Link>
-          <Link className="navbar-content ">
+          <Link to={"/profile"} className="navbar-content ">
             <Person2Icon className="navbar-icons" />
             <span className="navbar-text">Profile</span>
           </Link>
