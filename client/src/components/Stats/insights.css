@@ -1,4 +1,4 @@
-.top-income {
+.insight-box {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7,14 +7,34 @@
   font-family: "Raleway", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-  padding: 10px;
+  padding: 15px;
   text-align: center;
-}
-.top-income h1 {
-  color: green;
-  margin: 6px;
+
+  background: #000000d4;
 }
 
-.top-income span {
+.insight-box span {
   font-weight: bold;
+  font-size: 3rem;
+  /* color: black; */
+}
+
+.insight-box h1 {
+  font-weight: bolder;
+  color: white;
+}
+.insight-box span {
+  font-weight: bold;
+}
+
+/* arrows up and down */
+.arrow-up {
+  scale: 3.2;
+  color: green;
+  margin: 5px;
+}
+.arrow-down {
+  scale: 3.4;
+  color: rgb(167, 1, 1);
+  margin: 5px;
 }
