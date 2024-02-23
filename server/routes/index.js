@@ -5,4 +5,5 @@ const router = express.Router();
 
 router.use("/api/auth", authRoutes);
 
+
 export default router;

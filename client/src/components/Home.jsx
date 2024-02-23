@@ -56,7 +56,6 @@ const Home = () => {
   };
   return (
     <>
-      <h1>This is Home page</h1>
       <div className="multistep-form">
       <div className="step">
             <h2>Income</h2>

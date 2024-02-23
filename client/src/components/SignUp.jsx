@@ -37,7 +37,7 @@ const SignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission here, e.g., send data to a server
-    fetch("http://localhost:8000/signup", {
+    fetch("http://localhost:8000/api/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,5 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -19,6 +21,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const [result, setResult] = useState({});
+  const navigate= useNavigate();
   const [loginStatus, setloginStatus] = useState(false);
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -29,35 +33,30 @@ export default function SignIn() {
     };
 
     //handling fetch api
-    fetch("http://localhost:8000/signin", {
+    fetch("http://localhost:8000/api/auth/signin/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(userData),
-    })
-      .then((response) => {
-        switch (response.status) {
-          case 200:
-            console.log("login succesfull");
-            setloginStatus(true);
-            break;
-          case 201:
-            console.log("Invalid username");
-            break;
-          case 202:
-            console.log("Password Incorrect");
-            break;
-          default:
-            console.error(response.text);
-            break;
-        }
-
-        // //or
-        // just check if login is succesfull(with help of status)
-        // if not then store the status code in a state, apply css according to condiation and status code
-      })
+    }).then((response) => {
+      return response.json();
+    }).then(data => {const check = data.message
+      if (check === false){
+        alert("Password Incorrect");
+      }
+      else{
+        navigate('/')
+      }
+    }
+    )
       .catch((error) => console.error(`catch error:   ${error}`));
+
+
+    // fetch("http://localhost:8000/signin")
+    // .then(res=>res.json())
+    // .then(setResult);
+    // console.log(JSON.stringify(result));
   };
 
   return (
