@@ -1,8 +1,5 @@
 import pool from "../database/db.js";
-
 let index = null;
-
-
 
 export const signUp = async (req, res) => {
   const signupDet = req.body;
