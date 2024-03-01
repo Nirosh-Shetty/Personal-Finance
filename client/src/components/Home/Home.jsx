@@ -1,144 +1,200 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useRef } from "react";
+import CreatableSelect from "react-select/creatable";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormControl from "@mui/material/FormControl";
+
+import TextField from "@mui/material/TextField";
+
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
+import dayjs from "dayjs";
+
+import Button from "@mui/material/Button";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+
 import "./home.css";
+import Table from "./Table";
 
-const Home = () => {
-  console.log("home sweet home");
-  const [formDataI, setFormDataI] = useState({
-    iAmount:"",
-    iCategory:"",
-    iNote:"",
-    iDate:"",
-    iTime:""
-  });
-
-  const handleInputChangeI = (e) => {
-    const { name, value } = e.target;
-    setFormDataI({ ...formDataI, [name]: value });
-  };
-
-  const handleSubmitI = (e) => {
-    e.preventDefault();
-    // Handle form submission here, e.g., send data to a server
-    fetch("http://localhost:8000/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formDataI),
-  })
+const AmountIn = () => {
+  return (
+    <FormControl sx={{ m: 2, width: "100%" }}>
+      <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
+      <OutlinedInput
+        id="outlined-adornment-amount"
+        startAdornment={<InputAdornment position="start">₹</InputAdornment>}
+        label="Amount"
+      />
+    </FormControl>
+  );
 };
 
-    const [formDataE, setFormDataE] = useState({
-      eAmount:"",
-      eCategory:"",
-      eNote:"",
-      eDate:"",
-      eTime:""
-    });
-  
-    const handleInputChangeE = (e) => {
-      const { name, value } = e.target;
-      setFormDataE({ ...formDataE, [name]: value });
-    };
-  
-    const handleSubmitE = (e) => {
-      e.preventDefault();
-      // Handle form submission here, e.g., send data to a server
-      fetch("http://localhost:8000/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formDataE),
-      })
-    
+const Category = () => {
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [options, setOptions] = useState([
+  //   { label: "One", value: "one" },
+  //   { label: "Two", value: "two" },
+  //   { label: "Three", value: "three" },
+  // ]);
+  // const [value, setValue] = useState(null);
+
+  // const handleCreate = async (inputValue) => {
+  //   setIsLoading(true);
+
+  //   try {
+  //     // Make a request to your backend API to save the new option
+  //     const response = await fetch("http://localhost:8000/api/addcategory", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ label: inputValue }),
+  //     });
+
+  //     if (response.ok) {
+  //       // If the request is successful, update the options
+  //       const newOption = {
+  //         label: inputValue,
+  //         value: inputValue.toLowerCase().replace(/\W/g, ""),
+  //       };
+  //       setOptions((prev) => [...prev, newOption]);
+  //       setValue(newOption);
+  //     } else {
+  //       // Handle error if the request fails
+  //       console.error("Failed to save the new option");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error while making the request:", error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  // return (
+  //     <CreatableSelect
+  //       id="outlined-adornment-category"
+  //       isClearable
+  //       isDisabled={isLoading}
+  //       isLoading={isLoading}
+  //       onChange={(newValue) => setValue(newValue)}
+  //       onCreateOption={handleCreate}
+  //       options={options}
+  //       value={value}
+  //       placeholder=""
+  //     />
+  const [age, setAge] = React.useState("");
+  const handleChange = (event) => {
+    setAge(event.target.value);
   };
   return (
-    <>
-      <div className="multistep-form">
-      <div className="step">
-            <h2>Income</h2>
-            <input
-              type="text"
-              name="iAmount"
-              value={formDataI.iAmount}
-              placeholder="Amount"
-              onChange={handleInputChangeI}
-            />
-            <input
-              type="text"
-              name="iCategory"
-              value={formDataI.iCategory}
-              placeholder="Category"
-              onChange={handleInputChangeI}
-            />
-            <input
-              type="text"
-              name="iNote"
-              value={formDataI.iNote}
-              placeholder="Note"
-              onChange={handleInputChangeI}
-            />
-            <input
-              type="date"
-              name="iDate"
-              value={formDataI.iDate}
-              placeholder="Date"
-              onChange={handleInputChangeI}
-            />
-            <input
-              type="time"
-              name="iTime"
-              value={formDataI.iTime}
-              placeholder="Time"
-              onChange={handleInputChangeI}
-            />
-            <button onClick={handleSubmitI}>Post</button>
-          </div>
-          </div>
+    <FormControl fullWidth>
+      <InputLabel id="demo-simple-select-label">Category</InputLabel>
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        // value={age}
+        // name="age"
+        label="Category"
+        onChange={handleChange}
+      >
+        <MenuItem value={10}>Food</MenuItem>
+        <MenuItem value={20}>Travel</MenuItem>
+        <MenuItem value={30}>Education</MenuItem>
+      </Select>
+    </FormControl>
+  );
+};
 
-      <div className="multistep-form">
-      <div className="step">
-            <h2>Expense</h2>
-            <input
-              type="text"
-              name="eAmount"
-              value={formDataE.eAmount}
-              placeholder="Amount"
-              onChange={handleInputChangeE}
-            />
-            <input
-              type="text"
-              name="eCategory"
-              value={formDataE.eCategory}
-              placeholder="Category"
-              onChange={handleInputChangeE}
-            />
-            <input
-              type="text"
-              name="eNote"
-              value={formDataE.eNote}
-              placeholder="Note"
-              onChange={handleInputChangeE}
-            />
-            <input
-              type="date"
-              name="eDate"
-              value={formDataE.eDate}
-              placeholder="Date"
-              onChange={handleInputChangeE}
-            />
-            <input
-              type="time"
-              name="eTime"
-              value={formDataE.eTime}
-              placeholder="Time"
-              onChange={handleInputChangeE}
-            />
-            <button onClick={handleSubmitE}>Post</button>
+const DateTime = () => {
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer components={["DateTimePicker", "DateTimePicker"]}>
+        <DateTimePicker
+          label="Time"
+          defaultValue={dayjs()}
+          onChange={(date) => setSelectedDate(date)}
+          viewRenderers={{
+            hours: renderTimeViewClock,
+            minutes: renderTimeViewClock,
+            seconds: renderTimeViewClock,
+          }}
+        />
+      </DemoContainer>
+    </LocalizationProvider>
+  );
+};
+
+const IEbox = ({ type }) => {
+  return (
+    <div className={type + "-container iecontainer"}>
+      <h1>{type}</h1>
+      <DateTime />
+      <AmountIn />
+      <Category />
+      <TextField
+        id="outlined-basic"
+        label="Note"
+        variant="outlined"
+        name="note"
+        sx={{ m: 2, width: "100%" }}
+      />
+      <Button
+        variant="contained"
+        sx={{
+          width: "100%",
+          height: "10%",
+          fontSize: "1.2rem",
+          fontWeight: "bold",
+        }}
+        color={type === "income" ? "success" : "error"}
+        onClick={() => {
+          console.log("clciked");
+        }}
+      >
+        Add {type}
+      </Button>
+    </div>
+  );
+};
+
+const Home = () => {
+  const toggleRef = useRef();
+  const [type, settype] = useState("expense");
+  const toggleOnClick = (text) => {
+    if (text !== type) {
+      toggleRef.current.classList.toggle("toggle-position");
+      settype(text);
+      return;
+    }
+  };
+  const notType = type === "income" ? "expense" : "income";
+  const welcomeText =
+    notType === "income"
+      ? "Cheers! Just got paid or received some extra cash?"
+      : "Uh-oh! Where did the money go? Essential expense or a guilty pleasure?";
+  return (
+    <>
+      <div className="margin-left">
+        <div className="trans-main-container">
+          <div className="trans-container">
+            <IEbox type={"expense"} />
+            <IEbox type={"income"} />
+            <div className="toggle-container" ref={toggleRef}>
+              <h1>Hello!</h1>
+              <p>{welcomeText}</p>
+              <button onClick={() => toggleOnClick(notType)}>
+                add {notType}
+              </button>
+            </div>
           </div>
-          </div>
+        </div>
+        <Table />
+      </div>
     </>
   );
 };

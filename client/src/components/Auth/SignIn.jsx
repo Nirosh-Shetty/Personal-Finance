@@ -16,13 +16,15 @@ function SignIn() {
   const handleOnSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
     const userData = {
-      email: data.get("email"),
-      password: data.get("password"),
+      email: data.get("userInput"),
+      password: data.get("userPassword"),
     };
+    console.log(JSON.stringify(userData));
 
     //handling fetch api
-    fetch("http://localhost:8000/api/auth/signin/", {
+    fetch("http://localhost:8000/api/signin/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

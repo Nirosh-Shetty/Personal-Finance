@@ -48,7 +48,7 @@ body {
   text-decoration: none;
   margin: 15px 0;
 }
-
+/*  */
 .button {
   border-radius: 20px;
   border: 1px solid #ff4b2b;
@@ -71,7 +71,7 @@ body {
   outline: none;
 }
 
-.button.ghost.ghost {
+.button.ghost {
   background-color: transparent;
   border-color: #ffffff;
 }
@@ -96,7 +96,7 @@ body {
 }
 
 .container1 {
-  background-color: #fff;
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;

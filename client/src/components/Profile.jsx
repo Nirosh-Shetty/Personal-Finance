@@ -25,15 +25,14 @@ const Profile = () => {
                   <i className="fa fa-user"></i> Profile
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a href="#">
-                  {" "}
-                  <i className="fa fa-calendar"></i> Recent Activity{" "}
+                  <i className="fa fa-calendar"></i> Recent Activity
                   <span className="label label-warning pull-right r-activity">
                     9
                   </span>
                 </a>
-              </li>
+              </li> */}
               <li>
                 <a href="#">
                   {" "}
@@ -53,7 +52,7 @@ const Profile = () => {
               ></textarea>
             </form>
             <footer className="panel-footer">
-              <button className="btn btn-warning pull-right">Post</button>
+              <button className="btn btn-warning pull-right">Add Note</button>
               <ul className="nav nav-pills">
                 <li>
                   <a href="#">
@@ -130,7 +129,7 @@ const Profile = () => {
             </div>
           </div>
           <div>
-            <div className="row">
+            {/* <div className="row">
               <div className="col-md-6">
                 <div className="panel">
                   <div className="panel-body">
@@ -343,7 +342,7 @@ const Profile = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

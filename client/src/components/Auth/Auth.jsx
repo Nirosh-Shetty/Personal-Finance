@@ -19,7 +19,7 @@ export default function App() {
   return (
     <div className="App">
       {/* <h2 className="h2">Sign in/up Form</h2> */}
-      <div className={containerClass} id="container1">
+      <div className={containerClass}>
         <SignUp />
         <SignIn />
         <div className="overlay-container">
