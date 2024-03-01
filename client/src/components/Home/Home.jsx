@@ -21,7 +21,11 @@ import MenuItem from "@mui/material/MenuItem";
 import "./home.css";
 import Table from "./Table";
 
-const AmountIn = () => {
+const Amount = () => {
+  const [amount, setamount] = useState();
+  const onChangeHandle = (event) => {
+    setamount(event.target.value);
+  };
   return (
     <FormControl sx={{ m: 2, width: "100%" }}>
       <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
@@ -29,6 +33,9 @@ const AmountIn = () => {
         id="outlined-adornment-amount"
         startAdornment={<InputAdornment position="start">₹</InputAdornment>}
         label="Amount"
+        value={amount}
+        name="amount"
+        onChange={onChangeHandle}
       />
     </FormControl>
   );
@@ -87,9 +94,9 @@ const Category = () => {
   //       value={value}
   //       placeholder=""
   //     />
-  const [age, setAge] = React.useState("");
+  const [categoryId, setCategoryId] = React.useState("");
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setCategoryId(event.target.value);
   };
   return (
     <FormControl fullWidth>
@@ -99,6 +106,8 @@ const Category = () => {
         id="demo-simple-select"
         // value={age}
         // name="age"
+        value={categoryId}
+        name="category"
         label="Category"
         onChange={handleChange}
       >
@@ -111,13 +120,19 @@ const Category = () => {
 };
 
 const DateTime = () => {
+  const [time, settime] = useState(dayjs());
+  const handleOnChange = (event) => {
+    settime(event.target.value);
+  };
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={["DateTimePicker", "DateTimePicker"]}>
         <DateTimePicker
           label="Time"
+          name="time"
+          value={time}
+          // onChange={handleOnChange}
           defaultValue={dayjs()}
-          onChange={(date) => setSelectedDate(date)}
           viewRenderers={{
             hours: renderTimeViewClock,
             minutes: renderTimeViewClock,
@@ -130,11 +145,19 @@ const DateTime = () => {
 };
 
 const IEbox = ({ type }) => {
+  const [note, setnote] = useState();
+  const [transaction, settransaction] = useState({
+    type: "",
+    time: dayjs().toISOString(),
+    amount: "",
+    category: "",
+    note: "",
+  });
   return (
     <div className={type + "-container iecontainer"}>
       <h1>{type}</h1>
       <DateTime />
-      <AmountIn />
+      <Amount />
       <Category />
       <TextField
         id="outlined-basic"
@@ -142,6 +165,10 @@ const IEbox = ({ type }) => {
         variant="outlined"
         name="note"
         sx={{ m: 2, width: "100%" }}
+        value={note}
+        onChange={(event) => {
+          setnote(event.target.value);
+        }}
       />
       <Button
         variant="contained"
@@ -152,9 +179,7 @@ const IEbox = ({ type }) => {
           fontWeight: "bold",
         }}
         color={type === "income" ? "success" : "error"}
-        onClick={() => {
-          console.log("clciked");
-        }}
+        // onClick={}
       >
         Add {type}
       </Button>

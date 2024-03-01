@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-function SignIn() {
+import { useNavigate } from "react-router-dom";
+const SignIn = () => {
+  const navigate = useNavigate();
   const [state, setState] = useState({
     userInput: "",
     userPassword: "",
@@ -15,32 +17,25 @@ function SignIn() {
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-
-    const userData = {
-      email: data.get("userInput"),
-      password: data.get("userPassword"),
-    };
-    console.log(JSON.stringify(userData));
+    console.log(JSON.stringify(state));
 
     //handling fetch api
-    fetch("http://localhost:8000/api/signin/", {
+    fetch("http://localhost:8000/api/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(userData),
+      body: JSON.stringify(state),
     })
       .then((response) => {
+        // if (!response.ok) throw new Error(`http error! ${response.status}`);
         return response.json();
       })
       .then((data) => {
-        const check = data.message;
+        const check = data.success;
         if (check === false) {
-          alert("Password Incorrect");
-        } else {
-          navigate("/");
-        }
+          alert(data.message);
+        } else navigate("/");
       })
       .catch((error) => console.error(`catch error:   ${error}`));
   };
@@ -68,6 +63,7 @@ function SignIn() {
           name="userInput"
           value={state.userInput}
           onChange={handleChange}
+          required="true"
         />
         <input
           className="input "
@@ -76,6 +72,8 @@ function SignIn() {
           placeholder="Password"
           value={state.userPassword}
           onChange={handleChange}
+          required="true"
+          // autoComplete="false"
         />
         <a className="a" href="#">
           Forgot your password?
@@ -84,6 +82,6 @@ function SignIn() {
       </form>
     </div>
   );
-}
+};
 
 export default SignIn;

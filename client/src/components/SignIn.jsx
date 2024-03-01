@@ -22,7 +22,7 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
   const [result, setResult] = useState({});
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   const [loginStatus, setloginStatus] = useState(false);
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -39,19 +39,19 @@ export default function SignIn() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(userData),
-    }).then((response) => {
-      return response.json();
-    }).then(data => {const check = data.message
-      if (check === false){
-        alert("Password Incorrect");
-      }
-      else{
-        navigate('/')
-      }
-    }
-    )
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        const check = data.message;
+        if (check === false) {
+          alert("Password Incorrect");
+        } else {
+          navigate("/");
+        }
+      })
       .catch((error) => console.error(`catch error:   ${error}`));
-
 
     // fetch("http://localhost:8000/signin")
     // .then(res=>res.json())

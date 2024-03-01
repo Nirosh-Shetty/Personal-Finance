@@ -2,6 +2,8 @@ import "./profile.css";
 
 import React from "react";
 
+
+
 const Profile = () => {
   return (
     <div className="container bootstrap snippets bootdey margin-left">
@@ -25,18 +27,19 @@ const Profile = () => {
                   <i className="fa fa-user"></i> Profile
                 </a>
               </li>
-              {/* <li>
-                <a href="#">
-                  <i className="fa fa-calendar"></i> Recent Activity
-                  <span className="label label-warning pull-right r-activity">
-                    9
-                  </span>
-                </a>
-              </li> */}
+
               <li>
                 <a href="#">
                   {" "}
                   <i className="fa fa-edit"></i> Edit profile
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i className="fa fa-cog"></i> Settings
+                  {/* <span className="label label-warning pull-right r-activity">
+                    9
+                  </span> */}
                 </a>
               </li>
             </ul>

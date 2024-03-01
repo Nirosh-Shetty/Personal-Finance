@@ -15,8 +15,24 @@ function SignUp() {
 
   const handleOnSubmit = (evt) => {
     evt.preventDefault();
-
-    const { name, email, password } = state;
+    fetch("http://localhost:8000/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(state),
+    })
+      .then((response) => {
+        if (!response.ok)
+          throw new Error(`Some HTTP error : ${response.status}`);
+        return response.json();
+      })
+      .then((data) => {
+        console.log(`status code :${data}`);
+      })
+      .catch((error) => {
+        console.error(`some error in fetching : ${error}`);
+      });
   };
 
   return (
@@ -42,6 +58,7 @@ function SignUp() {
           value={state.name}
           onChange={handleChange}
           placeholder="Name"
+          required="true"
         />
         <input
           className="input "
@@ -50,6 +67,7 @@ function SignUp() {
           value={state.email}
           onChange={handleChange}
           placeholder="Email"
+          required="true"
         />
         <input
           className="input "
@@ -58,6 +76,7 @@ function SignUp() {
           value={state.password}
           onChange={handleChange}
           placeholder="Password"
+          required="true"
         />
         {/* <input
           className="input "
