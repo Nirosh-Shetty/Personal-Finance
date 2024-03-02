@@ -1,6 +1,6 @@
 import pool from "../database/db.js";
 import bcrypt from "bcryptjs";
-let index = null;
+import jwt from "jsonwebtoken";
 
 export const signUp = async (req, res) => {
   try {
@@ -82,12 +82,23 @@ export const signin = async (req, res) => {
           return;
         }
         if (result) {
-          res
-            .status(201)
-            .json({ success: true, message: "Authentication succesfull" });
+          const userid = dbResult.rows[0].userid;
+          const email = dbResult.rows[0].email;
+          // console.log({ userId, email })
+          const token = jwt.sign({ userid, email }, "00000", {
+            expiresIn: "1h",
+          });
+          // console.log(token);
+          res.status(201).json({
+            success: true,
+            message: "Authentication succesfull",
+            token: token,
+          });
           console.log("login done");
         } else {
-          res.status(402).json({ success: false, message: "Invalid password" });
+          res
+            .status(402)
+            .json({ success: false, message: "Invalid password", token });
           console.log("password wrong");
         }
       });

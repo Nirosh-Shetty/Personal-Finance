@@ -17,6 +17,7 @@ const SignIn = () => {
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
+    localStorage.removeItem("jwtToken");
     console.log(JSON.stringify(state));
 
     //handling fetch api
@@ -35,7 +36,10 @@ const SignIn = () => {
         const check = data.success;
         if (check === false) {
           alert(data.message);
-        } else navigate("/");
+        } else {
+          localStorage.setItem("jwtToken", data.token);
+          navigate("/");
+        }
       })
       .catch((error) => console.error(`catch error:   ${error}`));
   };

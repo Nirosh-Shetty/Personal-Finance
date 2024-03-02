@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./sideNavbar.css";
 import DonutSmallIcon from "@mui/icons-material/DonutSmall";
 import Person2Icon from "@mui/icons-material/Person2";
@@ -9,9 +9,15 @@ import HomeIcon from "@mui/icons-material/Home"; // home
 import ExpandLessIcon from "@mui/icons-material/ExpandLess"; //expand
 const SideNavbar = () => {
   const navbarRef = useRef();
+  const navigate = useNavigate();
   const toggleFn = () => {
-    console.log("mouse over/out");
+    // console.log("mouse over/out");
     navbarRef.current.classList.toggle("navbar-active");
+  };
+  const handleSignOut = () => {
+    console.log("cllll");
+    navigate("/getstarted");
+    localStorage.removeItem("jwtToken");
   };
   return (
     <>
@@ -41,10 +47,14 @@ const SideNavbar = () => {
           </Link>
         </div>
         <div className="navbar-bottom">
-          <Link className="navbar-content">
+          <span
+            className="navbar-content"
+            style={{ color: "#337ab7", cursor: "pointer" }}
+            onClick={handleSignOut}
+          >
             <ExitToAppIcon className="navbar-icons" />
             <span className="navbar-text">Signout</span>
-          </Link>
+          </span>
           <Link to={"/profile"} className="navbar-content ">
             <Person2Icon className="navbar-icons" />
             <span className="navbar-text">Profile</span>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import CreatableSelect from "react-select/creatable";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -21,11 +21,12 @@ import MenuItem from "@mui/material/MenuItem";
 import "./home.css";
 import Table from "./Table";
 
-const Amount = () => {
-  const [amount, setamount] = useState();
-  const onChangeHandle = (event) => {
-    setamount(event.target.value);
-  };
+import { useRecoilState } from "recoil";
+import { transactionAtom } from "../../recoil/atom/transactionAtom";
+import { json } from "react-router-dom";
+
+const Amount = ({ handleOnChange }) => {
+  const [transaction, setTransaction] = useRecoilState(transactionAtom);
   return (
     <FormControl sx={{ m: 2, width: "100%" }}>
       <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
@@ -33,15 +34,17 @@ const Amount = () => {
         id="outlined-adornment-amount"
         startAdornment={<InputAdornment position="start">₹</InputAdornment>}
         label="Amount"
-        value={amount}
+        value={transaction.amount}
         name="amount"
-        onChange={onChangeHandle}
+        onChange={handleOnChange}
+        type="number"
+        required
       />
     </FormControl>
   );
 };
 
-const Category = () => {
+const Category = ({ handleOnChange }) => {
   // const [isLoading, setIsLoading] = useState(false);
   // const [options, setOptions] = useState([
   //   { label: "One", value: "one" },
@@ -94,35 +97,40 @@ const Category = () => {
   //       value={value}
   //       placeholder=""
   //     />
-  const [categoryId, setCategoryId] = React.useState("");
-  const handleChange = (event) => {
-    setCategoryId(event.target.value);
-  };
+  const [transaction, setTransaction] = useRecoilState(transactionAtom);
+
   return (
     <FormControl fullWidth>
       <InputLabel id="demo-simple-select-label">Category</InputLabel>
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
-        // value={age}
-        // name="age"
-        value={categoryId}
+        value={transaction.category}
         name="category"
         label="Category"
-        onChange={handleChange}
+        onChange={handleOnChange}
+        required
       >
-        <MenuItem value={10}>Food</MenuItem>
-        <MenuItem value={20}>Travel</MenuItem>
-        <MenuItem value={30}>Education</MenuItem>
+        <MenuItem value={1}>Food</MenuItem>
+        <MenuItem value={2}>Travel</MenuItem>
+        <MenuItem value={3}>Education</MenuItem>
       </Select>
     </FormControl>
   );
 };
 
-const DateTime = () => {
+const DateTime = ({ handleOnChange }) => {
   const [time, settime] = useState(dayjs());
-  const handleOnChange = (event) => {
-    settime(event.target.value);
+  setInterval(() => {
+    settime(dayjs());
+  }, 60000);
+  const [transaction, setTransaction] = useRecoilState(transactionAtom);
+  // console.log(time.toISOString());
+  const onTimeChange = (event) => {
+    setTransaction((prev) => ({
+      ...prev,
+      time: time.toISOString(),
+    }));
   };
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -131,7 +139,7 @@ const DateTime = () => {
           label="Time"
           name="time"
           value={time}
-          // onChange={handleOnChange}
+          onChange={onTimeChange}
           defaultValue={dayjs()}
           viewRenderers={{
             hours: renderTimeViewClock,
@@ -144,31 +152,58 @@ const DateTime = () => {
   );
 };
 
-const IEbox = ({ type }) => {
-  const [note, setnote] = useState();
-  const [transaction, settransaction] = useState({
-    type: "",
-    time: dayjs().toISOString(),
-    amount: "",
-    category: "",
-    note: "",
-  });
+const IEbox = ({ ttype }) => {
+  const [transaction, setTransaction] = useRecoilState(transactionAtom);
+
+  const handleOnChange = (event) => {
+    const value = event.target.value;
+    const name = event.target.name;
+    setTransaction((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleOnSubmit = () => {
+    const token = localStorage.getItem("jwtToken");
+    fetch("http://localhost:8000/api/addtransaction", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(transaction),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setTransaction((prev) => ({
+          type: ttype,
+          time: dayjs().toISOString(),
+          amount: "",
+          category: "",
+          note: "",
+        }));
+      })
+      .catch((error) => console.log(error));
+  };
   return (
-    <div className={type + "-container iecontainer"}>
-      <h1>{type}</h1>
+    <div className={ttype + "-container iecontainer"}>
+      <h1>{ttype}</h1>
       <DateTime />
-      <Amount />
-      <Category />
+      <Amount handleOnChange={handleOnChange} />
+      <Category handleOnChange={handleOnChange} />
       <TextField
         id="outlined-basic"
         label="Note"
         variant="outlined"
         name="note"
         sx={{ m: 2, width: "100%" }}
-        value={note}
-        onChange={(event) => {
-          setnote(event.target.value);
-        }}
+        value={transaction.note}
+        // onChange={(event) => {
+        //   setnote(event.target.value);
+        // }}
+        onChange={handleOnChange}
+        required
       />
       <Button
         variant="contained"
@@ -178,10 +213,11 @@ const IEbox = ({ type }) => {
           fontSize: "1.2rem",
           fontWeight: "bold",
         }}
-        color={type === "income" ? "success" : "error"}
+        color={ttype === "income" ? "success" : "error"}
         // onClick={}
+        onClick={handleOnSubmit}
       >
-        Add {type}
+        Add {ttype}
       </Button>
     </div>
   );
@@ -190,6 +226,18 @@ const IEbox = ({ type }) => {
 const Home = () => {
   const toggleRef = useRef();
   const [type, settype] = useState("expense");
+  const [transaction, setTransaction] = useRecoilState(transactionAtom);
+
+  useEffect(() => {
+    setTransaction((prev) => ({
+      type: type,
+      time: dayjs().toISOString(),
+      amount: "",
+      category: "",
+      note: "",
+    }));
+  }, [type]);
+
   const toggleOnClick = (text) => {
     if (text !== type) {
       toggleRef.current.classList.toggle("toggle-position");
@@ -197,18 +245,20 @@ const Home = () => {
       return;
     }
   };
+
   const notType = type === "income" ? "expense" : "income";
   const welcomeText =
     notType === "income"
       ? "Cheers! Just got paid or received some extra cash?"
       : "Uh-oh! Where did the money go? Essential expense or a guilty pleasure?";
+
   return (
     <>
       <div className="margin-left">
         <div className="trans-main-container">
           <div className="trans-container">
-            <IEbox type={"expense"} />
-            <IEbox type={"income"} />
+            <IEbox ttype={"expense"} />
+            <IEbox ttype={"income"} />
             <div className="toggle-container" ref={toggleRef}>
               <h1>Hello!</h1>
               <p>{welcomeText}</p>

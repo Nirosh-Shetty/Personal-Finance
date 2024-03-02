@@ -21,7 +21,7 @@ const GetStarted = () => {
   const [landingPageData, setLandingPageData] = useState({});
   useEffect(() => {
     setLandingPageData(JsonData);
-    // fetch('loca')
+    localStorage.removeItem("jwtToken");
   }, []);
 
   return (
