@@ -6,7 +6,7 @@ export const signUp = async (req, res) => {
   try {
     const signupDetails = req.body;
     console.log(signupDetails);
-    const emailCheckQuery = "SELECT * FROM signup WHERE email = $1";
+    const emailCheckQuery = "SELECT * FROM users WHERE email = $1";
     const emailCheckResult = await pool.query(emailCheckQuery, [
       signupDetails.email,
     ]);
@@ -68,7 +68,7 @@ export const signin = async (req, res) => {
     const enUserPassword = await bcrypt.hash(userPassword, 8);
     console.log(enUserPassword, userPassword, userInput);
     const dbQuery =
-      "SELECT * FROM signup WHERE username = $1 OR email = $1 OR phone = $1";
+      "SELECT * FROM users WHERE username = $1 OR email = $1 OR phone = $1";
     const dbResult = await pool.query(dbQuery, [userInput]);
 
     if (dbResult.rows.length === 0) {
@@ -86,7 +86,7 @@ export const signin = async (req, res) => {
           const email = dbResult.rows[0].email;
           // console.log({ userId, email })
           const token = jwt.sign({ userid, email }, "00000", {
-            expiresIn: "1h",
+            expiresIn: "5h",
           });
           // console.log(token);
           res.status(201).json({
@@ -109,12 +109,12 @@ export const signin = async (req, res) => {
   }
   //after this change
   // const value = await pool.query(
-  //   `SELECT EXISTS(SELECT 1 FROM signup WHERE email=$1 AND password=$2)`,
+  //   `SELECT EXISTS(SELECT 1 FROM users WHERE email=$1 AND password=$2)`,
   //   [userInput, password]
   // );
   // console.log(value.rows[0].exists);
   // if (value.rows[0].exists) {
-  //   index = await pool.query(`SELECT userid FROM signup WHERE email=$1`, [
+  //   index = await pool.query(`SELECT userid FROM users WHERE email=$1`, [
   //     email,
   //   ]);
   //   index = index.rows[0].userid;

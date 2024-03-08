@@ -3,3 +3,5 @@ node_modules/
 
 # Ignore desktop.ini files
 desktop.ini
+
+.env

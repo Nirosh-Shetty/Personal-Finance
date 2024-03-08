@@ -15,6 +15,7 @@ function SignUp() {
 
   const handleOnSubmit = (evt) => {
     evt.preventDefault();
+    localStorage.removeItem('jwtToken')
     fetch("http://localhost:8000/api/signup", {
       method: "POST",
       headers: {

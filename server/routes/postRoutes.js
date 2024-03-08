@@ -1,18 +1,22 @@
 import express from "express";
-const Router = express.Router();
+const router = express.Router();
 import { signin, signUp } from "../controller/authController.js";
 import { addTransaction } from "../controller/addTransaction.js";
 import { authoriseMiddleware } from "../middleware/authoriseMiddleware.js";
-Router.post("/signin", signin);
+import { getData } from "../controller/getData.js";
 
-Router.post("/signUp", signUp);
+router.post("/signin", signin);
 
-Router.post("/addtransaction", authoriseMiddleware, addTransaction);
+router.post("/signUp", signUp);
 
-// Router.post("/addcatagory", (req, res) => {
+router.post("/addtransaction", authoriseMiddleware, addTransaction);
+
+router.post("/getdata", authoriseMiddleware, getData);
+
+// router.post("/addcatagory", (req, res) => {
 //   const { label } = req.body;
 //   console.log(label);
 //   res.send("added");
 // });
 
-export default Router;
+export default router;

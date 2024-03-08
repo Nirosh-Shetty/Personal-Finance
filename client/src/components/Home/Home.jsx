@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import CreatableSelect from "react-select/creatable";
+// import CreatableSelect from "react-select/creatable";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -23,7 +23,7 @@ import Table from "./Table";
 
 import { useRecoilState } from "recoil";
 import { transactionAtom } from "../../recoil/atom/transactionAtom";
-import { json } from "react-router-dom";
+// import { json } from "react-router-dom";
 
 const Amount = ({ handleOnChange }) => {
   const [transaction, setTransaction] = useRecoilState(transactionAtom);
@@ -44,7 +44,7 @@ const Amount = ({ handleOnChange }) => {
   );
 };
 
-const Category = ({ handleOnChange }) => {
+const Category = ({ handleOnChange, data }) => {
   // const [isLoading, setIsLoading] = useState(false);
   // const [options, setOptions] = useState([
   //   { label: "One", value: "one" },
@@ -111,9 +111,9 @@ const Category = ({ handleOnChange }) => {
         onChange={handleOnChange}
         required
       >
-        <MenuItem value={1}>Food</MenuItem>
-        <MenuItem value={2}>Travel</MenuItem>
-        <MenuItem value={3}>Education</MenuItem>
+        {data.map((arr, ind) => {
+          <MenuItem value={arr.categoryId}>{arr.category}</MenuItem>;
+        })}
       </Select>
     </FormControl>
   );
@@ -152,7 +152,7 @@ const DateTime = ({ handleOnChange }) => {
   );
 };
 
-const IEbox = ({ ttype }) => {
+const IEbox = ({ ttype, data }) => {
   const [transaction, setTransaction] = useRecoilState(transactionAtom);
 
   const handleOnChange = (event) => {
@@ -186,12 +186,13 @@ const IEbox = ({ ttype }) => {
       })
       .catch((error) => console.log(error));
   };
+
   return (
     <div className={ttype + "-container iecontainer"}>
       <h1>{ttype}</h1>
       <DateTime />
       <Amount handleOnChange={handleOnChange} />
-      <Category handleOnChange={handleOnChange} />
+      <Category handleOnChange={handleOnChange} data={data} />
       <TextField
         id="outlined-basic"
         label="Note"
@@ -227,6 +228,27 @@ const Home = () => {
   const toggleRef = useRef();
   const [type, settype] = useState("expense");
   const [transaction, setTransaction] = useRecoilState(transactionAtom);
+  const [fetchedData, setfetchedData] = useState();
+  useEffect(() => {
+    const token = localStorage.getItem("jwtToken");
+    fetch("http://localhost:8000/api/getdata", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) console.log("authorisationnn failed");
+        return response.json();
+      })
+      .then((data) => {
+        setfetchedData(data);
+      })
+      .catch((error) => {
+        console.error(`error in fectching data: ${error}`);
+      });
+  }, []);
 
   useEffect(() => {
     setTransaction((prev) => ({
@@ -245,7 +267,7 @@ const Home = () => {
       return;
     }
   };
-
+  console.log(fetchedData + "adasda");
   const notType = type === "income" ? "expense" : "income";
   const welcomeText =
     notType === "income"
@@ -257,8 +279,8 @@ const Home = () => {
       <div className="margin-left">
         <div className="trans-main-container">
           <div className="trans-container">
-            <IEbox ttype={"expense"} />
-            <IEbox ttype={"income"} />
+            <IEbox ttype={"expense"} data={fetchedData.expenseCategories} />
+            <IEbox ttype={"income"} data={fetchedData.incomeCategories} />
             <div className="toggle-container" ref={toggleRef}>
               <h1>Hello!</h1>
               <p>{welcomeText}</p>

@@ -5,8 +5,8 @@ export const addTransaction = (req, res) => {
   // console.log(userid);
   const { type, time, amount, category, note } = req.body;
   const query =
-    "INSERT INTO transaction (type, time, amount, categoryid, note, userid) VALUES ($1, $2, $3, $4, $5, $6)";
-  const value = [type, time, amount, category, note, userid];
+    "INSERT INTO transactions (time, amount, categoryid, note, userid) VALUES ($1, $2, $3, $4, $5)";
+  const value = [time, amount, category, note, userid];
   pool.query(query, value, (error, result) => {
     if (error) {
       console.error("Error executing query", error);

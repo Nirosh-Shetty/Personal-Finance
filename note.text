@@ -1,0 +1,29 @@
+have to create a sapreate category table for income and expense, thenwe should relate it to income and expense table respectively
+
+export jwt token and db password from .env
+
+const client = new Client({
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  host: process.env.PGHOST,
+  // other connection options
+});
+
+check token (server) without spliting
+
+signup db to user db (name change)
+
+new income/expnese added pop up on top or right side
+
+remove(jwttoken) on loading getstarted using useEffect   --- done
+
+authorise every page exept getstarted page with help of jwt 
+
+otp service
+
+contact us -- directlymail us
+
+not imp
+
+smooth scolling in getstarted page
+getstarted height change 

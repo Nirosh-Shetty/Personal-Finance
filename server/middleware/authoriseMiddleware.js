@@ -5,10 +5,10 @@ export const authoriseMiddleware = (req, res, next) => {
   if (!token) res.status(405).json({ message: "unauthorised!!!" });
   jwt.verify(token, "00000", (err, user) => {
     if (err) {
-      res.status(406).json({ message: "forbidden!!!!!" });
+      return res.status(406).json({ message: "forbidden!!!!!" });
     }
     req.user = user;
-    console.log(user.userid);
+    // console.log(user.userid);
     next();
   });
 };
