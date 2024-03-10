@@ -1,5 +1,8 @@
 import React from "react";
+import { useRecoilState } from "recoil";
+import { toggleAuthAtom } from "../../recoil/atom/toggleAuthAtom";
 function SignUp() {
+  const [type, setType] = useRecoilState(toggleAuthAtom);
   const [state, setState] = React.useState({
     name: "",
     email: "",
@@ -15,7 +18,7 @@ function SignUp() {
 
   const handleOnSubmit = (evt) => {
     evt.preventDefault();
-    localStorage.removeItem('jwtToken')
+    localStorage.removeItem("jwtToken");
     fetch("http://localhost:8000/api/signup", {
       method: "POST",
       headers: {
@@ -30,6 +33,7 @@ function SignUp() {
       })
       .then((data) => {
         console.log(`status code :${data}`);
+        setType("signIn");
       })
       .catch((error) => {
         console.error(`some error in fetching : ${error}`);

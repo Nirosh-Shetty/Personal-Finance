@@ -19,47 +19,27 @@ export const signUp = async (req, res) => {
 
     const enPassword = await bcrypt.hash(signupDetails.password, 8);
     await pool.query(
-      `INSERT INTO signup 
-      (name,username, phone, email, gender, address, password) 
-      VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-      [
-        signupDetails.name,
-        null,
-        null,
-        signupDetails.email,
-        null,
-        null,
-        enPassword,
-      ]
+      `INSERT INTO users 
+      (name, email, password) 
+      VALUES ($1, $2, $3)`,
+      [signupDetails.name, signupDetails.email, enPassword]
     );
+    const insertCategoriesQuery = `
+    INSERT INTO categories (userid, category_name, type)
+    VALUES
+      (${userId}, '🍔 Food', 'expense'),
+      (${userId}, '🛺 Transport', 'expense'),
+      (${userId}, '🧘🏻‍♂ Health', 'expense'),
+      (${userId}, '💶 Salary', 'income'),
+      (${userId}, '🏆 Reward', 'income');
+  `;
+    await pool.query(insertCategoriesQuery);
 
     res.status(201).json({ success: true, message: "Signup successful" });
   } catch (error) {
     console.error("Error in Signup: ", error);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
-
-  // const signupDetails = req.body;
-  // const enPassword = bcrypt.hash(signupDetails.password, 8);
-
-  //
-  // await pool.query(
-  //   `INSERT INTO signup
-  //   (firstname,lastname,phonenumber,email,housenumber,street,city,userstate,userpassword,confirmpassword)
-  //   VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
-  //   [
-  //     signupDetails.firstName,
-  //     signupDetails.lastName,
-  //     signupDetails.phoneNumber,
-  //     signupDetails.email,
-  //     signupDetails.houseNumber,
-  //     signupDetails.street,
-  //     signupDetails.city,
-  //     signupDetails.state,
-  //     signupDetails.password,
-  //     signupDetails.confirmPassword,
-  //   ]
-  // );
 };
 
 export const signin = async (req, res) => {
@@ -92,13 +72,11 @@ export const signin = async (req, res) => {
           res.status(201).json({
             success: true,
             message: "Authentication succesfull",
-            token: token,
+            token,
           });
           console.log("login done");
         } else {
-          res
-            .status(402)
-            .json({ success: false, message: "Invalid password", token });
+          res.status(402).json({ success: false, message: "Invalid password" });
           console.log("password wrong");
         }
       });
@@ -123,4 +101,15 @@ export const signin = async (req, res) => {
   // } else {
   //   res.json({ message: false });
   // }
+};
+
+export const pagesAuth = (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+  if (!token) res.status(405).json({ message: "unauthorised!!!" });
+  jwt.verify(token, "00000", (err, user) => {
+    if (err) {
+      return res.status(406).json({ message: "forbidden!!!!!" });
+    }
+    res.status(201).json({ message: "sucesfully authorised" });
+  });
 };

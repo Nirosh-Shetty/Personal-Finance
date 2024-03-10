@@ -1,5 +1,5 @@
 // App.js
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 // import SignIn from "./components/SignIn";
@@ -12,9 +12,24 @@ import Getstarted from "./components/GetStarted/GetStarted";
 
 import "./App.css";
 const App = () => {
+  // useEffect(() => {
+  //   const token = localStorage.getItem("jwtToken");
+  //   fetch("http://localhost:8000/api/pagesauth", {
+  //     method: "POST",
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //       "content-type": "application/json",
+  //     },
+  //   }).then((response) => {
+  //     if (!response.ok) {
+  //     }
+  //   });
+  // }, []);
+
   return (
     <>
       <Routes>
+        <Route path="/getstarted" element={<Getstarted />} />
         <Route
           path="/"
           element={
@@ -26,7 +41,6 @@ const App = () => {
         />
         <Route path="/auth" element={<Auth />} />
         {/* <Route path="/signup" element={<SignUp />} /> */}
-        <Route path="/getstarted" element={<Getstarted />} />
         <Route
           path="/profile"
           element={

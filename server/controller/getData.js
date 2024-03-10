@@ -49,11 +49,36 @@ export const getData = async (req, res) => {
       category: row.category_name,
     }));
 
-    res.json({ transactionHistory, incomeCategories, expenseCategories });
+    res.status(201).json({ transactionHistory, incomeCategories, expenseCategories });
   } catch (error) {
     console.error("Error fetching transaction history:", error);
     res.status(500).json({
       error: "Internal Server Error (error in getting transaction data)",
     });
+  }
+};
+
+export const getuserdata = async (req, res) => {
+  // console.log("qqqq");
+  const userId = req.user.userid;
+
+  const query = `
+  SELECT username, email,name,phone,gender,address,aboutus, TO_CHAR(dob, 'DD Month YYYY') AS dob,biophoto
+  FROM users
+  WHERE userid = $1
+`;
+
+  try {
+    const result = await pool.query(query, [userId]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const userDetails = result.rows[0];
+    console.log(userDetails);
+    res.status(201).json(userDetails);
+  } catch (error) {
+    console.error("Error fetching user details:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };

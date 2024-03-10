@@ -23,6 +23,7 @@ import Table from "./Table";
 
 import { useRecoilState } from "recoil";
 import { transactionAtom } from "../../recoil/atom/transactionAtom";
+import { useNavigate } from "react-router-dom";
 // import { json } from "react-router-dom";
 
 const Amount = ({ handleOnChange }) => {
@@ -112,7 +113,7 @@ const Category = ({ handleOnChange, data }) => {
         required
       >
         {data.map((arr, ind) => {
-          <MenuItem value={arr.categoryId}>{arr.category}</MenuItem>;
+          return <MenuItem value={arr.categoryId}>{arr.category}</MenuItem>;
         })}
       </Select>
     </FormControl>
@@ -192,7 +193,8 @@ const IEbox = ({ ttype, data }) => {
       <h1>{ttype}</h1>
       <DateTime />
       <Amount handleOnChange={handleOnChange} />
-      <Category handleOnChange={handleOnChange} data={data} />
+      <Category handleOnChange={handleOnChange} data={data || []} />
+
       <TextField
         id="outlined-basic"
         label="Note"
@@ -226,6 +228,7 @@ const IEbox = ({ ttype, data }) => {
 
 const Home = () => {
   const toggleRef = useRef();
+  const navigate = useNavigate();
   const [type, settype] = useState("expense");
   const [transaction, setTransaction] = useRecoilState(transactionAtom);
   const [fetchedData, setfetchedData] = useState();
@@ -239,8 +242,10 @@ const Home = () => {
       },
     })
       .then((response) => {
-        if (!response.ok) console.log("authorisationnn failed");
-        return response.json();
+        if (response.ok) return response.json();
+        else if (response.status >= 400 && response.status <= 410) {
+          navigate("/getstarted");
+        } else console.log("server error:, status code : " + response.status);
       })
       .then((data) => {
         setfetchedData(data);
@@ -277,20 +282,27 @@ const Home = () => {
   return (
     <>
       <div className="margin-left">
-        <div className="trans-main-container">
-          <div className="trans-container">
-            <IEbox ttype={"expense"} data={fetchedData.expenseCategories} />
-            <IEbox ttype={"income"} data={fetchedData.incomeCategories} />
-            <div className="toggle-container" ref={toggleRef}>
-              <h1>Hello!</h1>
-              <p>{welcomeText}</p>
-              <button onClick={() => toggleOnClick(notType)}>
-                add {notType}
-              </button>
+        {/* IEbox components */}
+        {fetchedData ? (
+          <>
+            <div className="trans-main-container">
+              <div className="trans-container">
+                <IEbox ttype={"expense"} data={fetchedData.expenseCategories} />
+                <IEbox ttype={"income"} data={fetchedData.incomeCategories} />
+                <div className="toggle-container" ref={toggleRef}>
+                  <h1>Hello!</h1>
+                  <p>{welcomeText}</p>
+                  <button onClick={() => toggleOnClick(notType)}>
+                    add {notType}
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <Table />
+            <Table data={fetchedData.transactionHistory} />
+          </>
+        ) : (
+          <h1>Loading...</h1>
+        )}
       </div>
     </>
   );
