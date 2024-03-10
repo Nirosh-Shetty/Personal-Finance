@@ -9,6 +9,7 @@ import Profile from "./components/Profile";
 import SideNavbar from "./components/SideNavbar";
 import Stats from "./components/Stats/Stats";
 import Getstarted from "./components/GetStarted/GetStarted";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 
 import "./App.css";
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
     <>
       <Routes>
         <Route path="/getstarted" element={<Getstarted />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route
           path="/"
           element={

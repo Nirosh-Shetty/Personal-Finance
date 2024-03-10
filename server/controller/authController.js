@@ -24,6 +24,7 @@ export const signUp = async (req, res) => {
       VALUES ($1, $2, $3)`,
       [signupDetails.name, signupDetails.email, enPassword]
     );
+
     const insertCategoriesQuery = `
     INSERT INTO categories (userid, category_name, type)
     VALUES
@@ -33,6 +34,7 @@ export const signUp = async (req, res) => {
       (${userId}, '💶 Salary', 'income'),
       (${userId}, '🏆 Reward', 'income');
   `;
+
     await pool.query(insertCategoriesQuery);
 
     res.status(201).json({ success: true, message: "Signup successful" });

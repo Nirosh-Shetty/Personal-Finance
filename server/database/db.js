@@ -1,9 +1,11 @@
 import pkg from "pg";
 const { Pool } = pkg;
 
+import dotenv from "dotenv";
+dotenv.config();
 const pool = new Pool({
   user: "postgres",
-  password: "00000",
+  password: process.env.PGPASSWORD,
   host: "localhost",
   port: 5432,
   database: "MoneyManager",

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const SignIn = () => {
   const navigate = useNavigate();
   const [state, setState] = useState({
@@ -79,9 +79,9 @@ const SignIn = () => {
           required="true"
           // autoComplete="false"
         />
-        <a className="a" href="#">
+        <Link to="/forgotpassword" className="a" href="#">
           Forgot your password?
-        </a>
+        </Link>
         <button className="button">Sign In</button>
       </form>
     </div>
