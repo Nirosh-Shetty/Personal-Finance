@@ -3,7 +3,7 @@ const { Pool } = pkg;
 
 const pool = new Pool({
   user: "postgres",
-  password: "00000",
+  password: "00000000",
   host: "localhost",
   port: 5432,
   database: "MoneyManager",

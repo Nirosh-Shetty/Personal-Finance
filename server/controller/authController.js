@@ -24,6 +24,10 @@ export const signUp = async (req, res) => {
       VALUES ($1, $2, $3)`,
       [signupDetails.name, signupDetails.email, enPassword]
     );
+
+    const userIdObj = await pool.query(`SELECT userid FROM users WHERE email=$1`,[signupDetails.email]); 
+    const userId = userIdObj.rows[0].userid;
+    console.log(userId);
     const insertCategoriesQuery = `
     INSERT INTO categories (userid, category_name, type)
     VALUES
@@ -50,7 +54,7 @@ export const signin = async (req, res) => {
     const dbQuery =
       "SELECT * FROM users WHERE username = $1 OR email = $1 OR phone = $1";
     const dbResult = await pool.query(dbQuery, [userInput]);
-
+    
     if (dbResult.rows.length === 0) {
       res.status(401).json({ success: false, message: "User not found" });
       console.log("user not found");
@@ -75,6 +79,7 @@ export const signin = async (req, res) => {
             token,
           });
           console.log("login done");
+        
         } else {
           res.status(402).json({ success: false, message: "Invalid password" });
           console.log("password wrong");

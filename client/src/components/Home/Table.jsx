@@ -11,7 +11,7 @@ import TableRow from "@mui/material/TableRow";
 const columns = [
   { id: "amount", label: "Amount (₹)", minWidth: 100, align: "right" },
   { id: "time", label: "Time", minWidth: 170, align: "left" },
-  { id: "category_name", label: "Category", minWidth: 170 },
+  { id: "categor_name", label: "Category", minWidth: 170 },
   { id: "type", label: "Type", minWidth: 100 },
   { id: "note", label: "Note", minWidth: 170 },
 ];
