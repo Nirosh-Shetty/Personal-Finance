@@ -35,7 +35,6 @@ export const getData = async (req, res) => {
     
 
     // Fetch distinct categories for income
-
     const incomeCategoriesResult = await pool.query(incomeCategoriesQuery, [
       userId,
     ]);

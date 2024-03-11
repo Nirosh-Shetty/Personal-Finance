@@ -9,7 +9,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
 const columns = [
-  { id: "amount", label: "Amount (₹)", minWidth: 100, align: "right" },
+  { id: "amount", label: "Amount (₹)", minWidth: 100, align: "left" },
   { id: "time", label: "Time", minWidth: 170, align: "left" },
   { id: "category_name", label: "Category", minWidth: 170 },
   { id: "type", label: "Type", minWidth: 100 },
