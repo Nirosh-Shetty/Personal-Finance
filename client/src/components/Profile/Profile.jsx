@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./profile.css";
 import React, { useEffect, useState } from "react";
 const Profile = () => {
@@ -53,9 +53,9 @@ const Profile = () => {
                 </li>
 
                 <li>
-                  <a href="#">
+                  <Link to="/editprofile">
                     <i className="fa fa-edit"></i> Edit profile
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a href="#">

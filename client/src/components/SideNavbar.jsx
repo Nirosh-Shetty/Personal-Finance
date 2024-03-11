@@ -41,10 +41,10 @@ const SideNavbar = () => {
             <DonutSmallIcon className="navbar-icons" />
             <span className="navbar-text">Stats</span>
           </Link>
-          <Link className="navbar-content">
+          {/* <Link className="navbar-content">
             <RssFeedIcon className="navbar-icons" />
             <span className="navbar-text">Blogs</span>
-          </Link>
+          </Link> */}
         </div>
         <div className="navbar-bottom">
           <span

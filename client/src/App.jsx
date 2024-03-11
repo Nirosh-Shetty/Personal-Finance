@@ -5,12 +5,12 @@ import Home from "./components/Home/Home";
 // import SignIn from "./components/SignIn";
 // import SignUp from "./components/SignUp";
 import Auth from "./components/Auth/Auth";
-import Profile from "./components/Profile";
+import Profile from "./components/Profile/Profile";
 import SideNavbar from "./components/SideNavbar";
 import Stats from "./components/Stats/Stats";
 import Getstarted from "./components/GetStarted/GetStarted";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
-
+import EditProfile from "./components/Profile/EditProfile";
 import "./App.css";
 const App = () => {
   // useEffect(() => {
@@ -49,6 +49,15 @@ const App = () => {
             <>
               <SideNavbar />
               <Profile />
+            </>
+          }
+        />
+        <Route
+          path="/editprofile"
+          element={
+            <>
+              <SideNavbar />
+              <EditProfile />
             </>
           }
         />

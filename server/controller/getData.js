@@ -32,7 +32,6 @@ export const getData = async (req, res) => {
     const transactionHistory = result.rows;
 
     // Fetch distinct categories for income
-
     const incomeCategoriesResult = await pool.query(incomeCategoriesQuery, [
       userId,
     ]);
@@ -49,7 +48,9 @@ export const getData = async (req, res) => {
       category: row.category_name,
     }));
 
-    res.status(201).json({ transactionHistory, incomeCategories, expenseCategories });
+    res
+      .status(201)
+      .json({ transactionHistory, incomeCategories, expenseCategories });
   } catch (error) {
     console.error("Error fetching transaction history:", error);
     res.status(500).json({
