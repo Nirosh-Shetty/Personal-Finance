@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import FormHelperText from "@mui/joy/FormHelperText";
@@ -6,6 +6,30 @@ import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 
 export default function InputSubscription() {
+  const [email, setemail] = useState();
+  const onEmailChange = (e) => {
+    setemail(e.target.value);
+  };
+  const onEmailSubmit = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:8000/api/forgot/emailcheck", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    })
+      .then((response) => {
+        if (!response.ok) console.log("responmse not ok");
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log("error in fecthing :", error);
+      });
+  };
   const [data, setData] = React.useState({
     email: "",
     status: "initial",
@@ -25,7 +49,11 @@ export default function InputSubscription() {
   };
 
   return (
-    <form onSubmit={handleSubmit} id="demo">
+    <form
+      // onSubmit={handleSubmit}
+      onSubmit={onEmailSubmit}
+      id="demo"
+    >
       <FormControl sx={{ width: "290px", marginBottom: "15px" }}>
         {/* <FormLabel
           sx={(theme) => ({
@@ -40,13 +68,15 @@ export default function InputSubscription() {
             width: "100%",
             fontSize: "1.3rem",
           }}
-          placeholder="mail@mui.com"
+          placeholder="Enter you email"
           type="email"
           required
-          value={data.email}
-          onChange={(event) =>
-            setData({ email: event.target.value, status: "initial" })
-          }
+          // value={data.email}
+          value={email}
+          // onChange={(event) =>
+          //   setData({ email: event.target.value, status: "initial" })
+          // }
+          onChange={onEmailChange}
           error={data.status === "failure"}
           endDecorator={
             <Button
@@ -55,11 +85,13 @@ export default function InputSubscription() {
               loading={data.status === "loading"}
               type="submit"
               sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+              // onSubmit={onEmailSubmit}
             >
               Send OTP
             </Button>
           }
         />
+
         {data.status === "failure" && (
           <FormHelperText
             sx={(theme) => ({ color: theme.vars.palette.danger[400] })}
@@ -72,7 +104,7 @@ export default function InputSubscription() {
           <FormHelperText
             sx={(theme) => ({ color: theme.vars.palette.primary[400] })}
           >
-            You are all set!
+            OTP send
           </FormHelperText>
         )}
       </FormControl>
