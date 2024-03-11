@@ -5,17 +5,44 @@ import LineChart from "./LineChart";
 import PieChart from "./PieChart";
 import PercentageChat from "./PercentageChat";
 import Insights from "./Insights";
+import React, { useEffect, useState } from "react";
+
 export default function Stats() {
+  
+  const [total, settotal] = useState();
+  const [totalIncome, settotalIncome] = useState();
+  const [totalExpense, settotalExpense] = useState();
+  useEffect(() => {
+  const token = localStorage.getItem("jwtToken");
+    fetch("http://localhost:8000/api/getdata", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        settotal(data.total);
+        settotalIncome(data.totalIncome);
+        settotalExpense(data.totalExpense);
+      })
+      .catch((error) => console.log(error));
+    }, []);
+
+  
   return (
     <div className="margin-left stats-container">
       <button className="total">
-        ₹45678<span className="amount-type">Total</span>
+        {total}<span className="amount-type">Total</span>
       </button>
       <button className="income">
-        ₹13464<span className="amount-type">Income</span>
+        {totalIncome}<span className="amount-type">Income</span>
       </button>
       <button className="expense">
-        ₹346346<span className="amount-type">Expense</span>
+        {totalExpense}<span className="amount-type">Expense</span>
       </button>
 
       <div className="insights">

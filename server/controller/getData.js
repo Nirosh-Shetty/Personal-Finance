@@ -1,3 +1,4 @@
+
 import pool from "../database/db.js";
 
 export const getData = async (req, res) => {
@@ -30,6 +31,8 @@ export const getData = async (req, res) => {
   try {
     const result = await pool.query(transactionQuery, [userId]);
     const transactionHistory = result.rows;
+    
+    
 
     // Fetch distinct categories for income
 
@@ -49,7 +52,57 @@ export const getData = async (req, res) => {
       category: row.category_name,
     }));
 
-    res.status(201).json({ transactionHistory, incomeCategories, expenseCategories });
+    
+    const filteredIncome = transactionHistory.filter(user => user.type === "income");
+    const filteredExpense = transactionHistory.filter(user => user.type === "expense");
+    
+    let totalIncome = 0;
+    let totalExpense = 0;
+
+    filteredIncome.forEach((income)=>{
+      totalIncome += parseInt(income.amount);
+    })
+
+     filteredExpense.forEach((expense)=>{
+      totalExpense += parseInt(expense.amount);
+    })
+
+    const ratio = ((totalExpense/totalIncome)*100).toFixed(2);
+
+    const total = totalIncome+totalExpense;
+
+    const maxIncome = Math.max.apply(Math, filteredIncome.map(function(o) { return o.amount; }));
+    const maxExpense = Math.max.apply(Math, filteredExpense.map(function(o) { return o.amount; }));
+    
+    let maxIncomeSpent=[];
+    let maxExpenseSpent=[];
+
+    filteredIncome.filter((user) => {
+      if(user.amount === `${maxIncome}.00`) maxIncomeSpent.push(user.category_name);
+    });
+
+    filteredExpense.forEach((user) => {
+      if(user.amount === `${maxExpense}.00`) maxExpenseSpent.push(user.category_name);
+    });
+
+    let catArray = [];
+    let amtArray = [];
+    let perArray = [];
+
+    transactionHistory.filter((user) => {
+      perArray.push(((user.amount/totalIncome)*100).toFixed(2));
+      catArray.push(user.category_name);
+      amtArray.push(user.amount);
+    });
+
+    const perChartArray = transactionHistory.map((user) => ({
+      percentage: ((user.amount/totalIncome)*100).toFixed(2),
+      category_type: user.category_name,
+      amount: user.amount
+    }));
+
+    res.status(201).json({ transactionHistory,incomeCategories,expenseCategories,total,totalIncome,totalExpense,
+      ratio,maxIncomeSpent,maxExpenseSpent,catArray,amtArray,perArray,perChartArray });
   } catch (error) {
     console.error("Error fetching transaction history:", error);
     res.status(500).json({

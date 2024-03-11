@@ -20,7 +20,7 @@ const Profile = () => {
         } else console.log("server error:, status code : " + response.status);
       })
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         setfetchedUserData(data);
       })
       .catch((error) => {

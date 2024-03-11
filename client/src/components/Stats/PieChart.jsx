@@ -1,21 +1,51 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import Chart from "chart.js/auto";
+import { useState,useEffect } from "react";
+
+
 
 const PieChart = () => {
+  const [catArray, setcatArray] = useState();
+  const [amtArray, setamtArray] = useState();
+  useEffect(() => {
+  const token = localStorage.getItem("jwtToken");
+    fetch("http://localhost:8000/api/getdata", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setcatArray(data.catArray);
+        setamtArray(data.amtArray);
+      })
+      .catch((error) => console.log(error));
+    }, []);
+
+  
   const data = {
-    labels: ["Go", "Python", "Kotlin", "JavaScript", "R", "Swift"],
+    labels: catArray,
     datasets: [
       {
-        label: "# of Votes",
-        data: [55, 25, 22, 20, 5, 15],
+        label: "Amount",
+        data: amtArray,
         backgroundColor: [
           "#007D9C",
           "#244D70",
-          "#F101E3",
+          "#808000",
           "#F7E018",
           "#FA201A",
+          "#BDB76B",
+          "#7CFC00",
+          "#F101E3",
+          "#00FF00",
           "#FE452A",
+          
         ],
         // borderColor: [
         //   "rgba(255,99,132,1)",
@@ -53,6 +83,7 @@ const PieChart = () => {
       </div>
     </>
   );
+
 };
 
 export default PieChart;
