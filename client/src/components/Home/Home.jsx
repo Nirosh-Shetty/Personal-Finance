@@ -21,6 +21,8 @@ import MenuItem from "@mui/material/MenuItem";
 import "./home.css";
 import Table from "./Table";
 
+import toast, { Toaster } from "react-hot-toast";
+
 import { useRecoilState } from "recoil";
 import { transactionAtom } from "../../recoil/atom/transactionAtom";
 import { useNavigate } from "react-router-dom";
@@ -112,6 +114,7 @@ const Category = ({ handleOnChange, data }) => {
         onChange={handleOnChange}
         required
       >
+        {/* {console.log(data)} */}
         {data.map((arr, ind) => {
           return <MenuItem value={arr.categoryId}>{arr.category}</MenuItem>;
         })}
@@ -176,7 +179,7 @@ const IEbox = ({ ttype, data }) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
+        toast.success("Transactin added succesfully");
         setTransaction((prev) => ({
           type: ttype,
           time: dayjs().toISOString(),
@@ -185,7 +188,10 @@ const IEbox = ({ ttype, data }) => {
           note: "",
         }));
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        toast.error("Error in adding the Transaction!");
+        console.log(error);
+      });
   };
 
   return (
@@ -234,7 +240,7 @@ const Home = () => {
   const [fetchedData, setfetchedData] = useState();
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
-    fetch("http://localhost:8000/api/getdata", {
+    fetch("http://localhost:8000/api/homedata", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -253,7 +259,7 @@ const Home = () => {
       .catch((error) => {
         console.error(`error in fectching data: ${error}`);
       });
-  }, []);
+  }, [transaction]);
 
   useEffect(() => {
     setTransaction((prev) => ({
@@ -301,7 +307,7 @@ const Home = () => {
             <Table data={fetchedData.transactionHistory} />
           </>
         ) : (
-          <h1>Loading...</h1>
+          <h1 style={{ margin: "100px", fontSize: "5rem" }}>Loading...</h1>
         )}
       </div>
     </>

@@ -1,0 +1,169 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+/* Just the background stuff */
+/* span.s1 {
+  position: absolute;
+  top: 0;
+  font-size: 15rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #3c4447;
+}
+
+span.s2 {
+  font-weight: 800;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 15rem;
+  text-transform: uppercase;
+  color: #3c4447;
+} */
+
+/* My hum... body.. yeah.. */
+body {
+  background-color: #353b3f;
+  font-family: "Roboto", sans-serif;
+}
+
+.card-container {
+}
+
+/* The card */
+.card {
+  position: relative;
+  height: 450px;
+  width: 900px;
+  margin: 50px auto;
+  background-color: #fff;
+  box-shadow: 10px 10px 93px 0px rgba(0, 0, 0, 0.75);
+}
+
+/* Image on the left side */
+.thumbnail {
+  float: left;
+  position: relative;
+  left: 30px;
+  top: -30px;
+  height: 320px;
+  width: 530px;
+  box-shadow: 10px 10px 60px 0px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+}
+
+img.left {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: auto;
+  width: 100%;
+  transform: translate(-50%, -50%);
+}
+
+/* Right side of the card */
+.right {
+  margin-left: 590px;
+  margin-right: 20px;
+}
+
+.card-h1 {
+  padding-top: 15px;
+  font-size: 2rem;
+  color: #4b4b4b;
+  font-weight: bolder;
+}
+
+.author {
+  background-color: #9ecaff;
+  height: 30px;
+  width: 110px;
+  border-radius: 20px;
+  /* padding: 3px; */
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.author > img {
+  /* padding-top: 5px; */
+  /* margin-left: 10px; */
+  /* float: left; */
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+
+.card-h2 {
+  /* padding-top: 8px; */
+  /* margin-right: 6px; */
+  text-align: right;
+  font-size: 0.8rem;
+  color: white;
+  padding-bottom: 6px;
+}
+
+.separator {
+  margin: 14px 0 8px 0;
+  border: 1px solid #c3c3c3;
+}
+
+.card-p {
+  /* position: ; */
+  text-align: justify;
+  padding-top: 10px;
+  font-size: 1.3rem;
+  line-height: 150%;
+  color: #4b4b4b;
+}
+
+/* DATE of release */
+.card-h5 {
+  position: absolute;
+  left: 75px;
+  top: 295px;
+  font-size: 9rem;
+  color: #c3c3c3;
+  font-weight: bolder;
+}
+
+.card-h6 {
+  position: absolute;
+  left: 75px;
+  top: 390px;
+  font-size: 3rem;
+  color: #c3c3c3;
+  font-weight: bold;
+}
+
+/* Those futur buttons */
+.card-ul {
+  position: absolute;
+  left: 380px;
+  top: 390px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-li {
+  display: inline;
+  list-style: none;
+  padding-right: 40px;
+  color: #7b7b7b;
+}
+
+/* Floating action button */
+.fab {
+  position: absolute;
+  right: 60px;
+  top: 410px;
+  box-sizing: border-box;
+  padding-top: 18px;
+  background-color: #1875d0;
+  width: 70px;
+  height: 70px;
+  color: white;
+  text-align: center;
+  border-radius: 50%;
+  box-shadow: 0px 0px 30px 0px rgba(50, 50, 50, 0.322);
+}

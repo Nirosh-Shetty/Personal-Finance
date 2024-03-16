@@ -381,3 +381,10 @@ ul.summary-list > li:last-child {
 .activity-desk .album a:last-child {
   margin-right: 0px;
 }
+
+/* edit profile stytles */
+.edit-profile-input {
+  outline: none;
+  padding: 8px;
+  border: none;
+}

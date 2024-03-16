@@ -7,6 +7,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp"; // signout
 import RssFeedIcon from "@mui/icons-material/RssFeed"; // blog
 import HomeIcon from "@mui/icons-material/Home"; // home
 import ExpandLessIcon from "@mui/icons-material/ExpandLess"; //expand
+import LightbulbIcon from "@mui/icons-material/Lightbulb";
 const SideNavbar = () => {
   const navbarRef = useRef();
   const navigate = useNavigate();
@@ -40,6 +41,10 @@ const SideNavbar = () => {
           <Link to={"/stats"} className="navbar-content">
             <DonutSmallIcon className="navbar-icons" />
             <span className="navbar-text">Stats</span>
+          </Link>
+          <Link to={"/fintip"} className="navbar-content">
+            <LightbulbIcon className="navbar-icons" />
+            <span className="navbar-text">FinTip</span>
           </Link>
           {/* <Link className="navbar-content">
             <RssFeedIcon className="navbar-icons" />

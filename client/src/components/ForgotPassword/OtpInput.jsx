@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
 export default function ValidationTextFields() {
+  const [isOtp, setIsOtp] = useState(false);
   const [otp, setotp] = useState();
   const [helperText, sethelperText] = useState("OTP");
   const handleChange = (e) => {
@@ -41,6 +42,7 @@ export default function ValidationTextFields() {
           onChange={handleChange}
         />
       </div>
+      {}
     </Box>
   );
 }

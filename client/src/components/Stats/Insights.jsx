@@ -1,18 +1,18 @@
 import React from "react";
 import "./insights.css";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 // import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 // import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 const Insights = () => {
   const [ratio, setratio] = useState();
-  const [maxIncomeCat,setmaxIncomeCat] = useState([]);
-  const [maxExpenseCat,setmaxExpenseCat] = useState([]);
+  const [maxIncomeCat, setmaxIncomeCat] = useState([]);
+  const [maxExpenseCat, setmaxExpenseCat] = useState([]);
 
   useEffect(() => {
-  const token = localStorage.getItem("jwtToken");
-    fetch("http://localhost:8000/api/getdata", {
+    const token = localStorage.getItem("jwtToken");
+    fetch("http://localhost:8000/api/statsdata", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -29,7 +29,7 @@ const Insights = () => {
         setmaxExpenseCat(data.maxExpenseSpent);
       })
       .catch((error) => console.log(error));
-    }, []);
+  }, []);
 
   return (
     <>
@@ -39,13 +39,13 @@ const Insights = () => {
       </div>
       <div className="top-income insight-box">
         <h1>
-          <ArrowDropUpIcon className="arrow-down" /> Top Income Source
+          <ArrowDropUpIcon className="arrow-up" /> Top Income Source
         </h1>
         <span>{maxIncomeCat}</span>
       </div>
       <div className="most-trans insight-box">
         <h1>
-          <ArrowDropUpIcon className="arrow-up" /> Highest Expenditure category
+          <ArrowDropDownIcon className="arrow-down" /> Mostly Spent On
         </h1>
         <span>{maxExpenseCat}</span>
       </div>

@@ -12,6 +12,7 @@ import Getstarted from "./components/GetStarted/GetStarted";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import EditProfile from "./components/Profile/EditProfile";
 import "./App.css";
+import FinTip from "./components/FinTip/FinTip";
 const App = () => {
   // useEffect(() => {
   //   const token = localStorage.getItem("jwtToken");
@@ -67,6 +68,15 @@ const App = () => {
             <>
               <SideNavbar />
               <Stats />
+            </>
+          }
+        />
+        <Route
+          path="/fintip"
+          element={
+            <>
+              <SideNavbar />
+              <FinTip />
             </>
           }
         />

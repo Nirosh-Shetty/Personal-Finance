@@ -10,5 +10,3 @@ export const transactionAtom = atom({
     note: "",
   },
 });
-
-//check export defaout

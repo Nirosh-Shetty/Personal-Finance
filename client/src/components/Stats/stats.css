@@ -1,15 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Madimi+One&display=swap");
 
 .stats-container {
-  background: #8a8a8a5d;
+  background: #ffffff96;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 0.7fr 3fr 3fr;
   gap: 25px;
   /* height: 100vh; */
   padding: 20px;
-
-  font-family: "Raleway", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
 }
@@ -21,7 +20,7 @@
 } */
 
 .stats-container > * {
-  border-radius: 4px;
+  border-radius: 15px;
   background: white;
   box-shadow: 0px 0px 20px 1px rgba(100, 100, 100, 0.249);
 }
@@ -32,7 +31,6 @@
   width: 45%;
   border: none;
   margin: 10px;
-  font-family: sans-serif;
   color: rgb(255, 255, 255);
   text-transform: uppercase;
   margin: auto;
@@ -44,27 +42,40 @@
   font-optical-sizing: auto;
   font-style: normal;
 }
-.total:hover,
-.income:hover,
-.expense:hover {
-  box-shadow: 0px 0px 8px 0.1px rgba(87, 87, 87, 0.119);
-  background: rgb(208, 208, 208);
-  color: rgb(0, 0, 0);
-}
+
 .total {
-  color: black;
+  color: white;
+  width: 93%;
+  background: #000000d4;
+}
+
+.total:hover {
+  background: white;
+  /* color: green; */
+  box-shadow: 0 0 20px 0 rgba(0, 100, 128, 0.18);
 }
 .income {
   background: green;
 }
+.income:hover {
+  background: white;
+  color: green;
+  box-shadow: 0 0 20px 0 rgba(0, 128, 0, 0.217);
+}
+
 .expense {
   background: rgb(179, 0, 0);
+}
+.expense:hover {
+  background: white;
+  color: rgb(179, 0, 0);
+  box-shadow: 0 0 20px 0 rgba(179, 0, 0, 0.201);
 }
 .amount-type {
   font-size: 1rem;
   font-weight: 400;
   margin-left: 8px;
-  font-family: "Raleway", sans-serif;
+  font-family: "Madimi One", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
 }
@@ -77,13 +88,16 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
-  background-color: transparent;
+  background: transparent;
   box-shadow: none;
+}
+.insights * {
+  font-family: "Exo 2", sans-serif;
 }
 
 .insights > * {
-  background: #ffffff;
-  border-radius: 5px;
+  /* background: #ffffff; */
+  border-radius: 15px;
   width: 90%;
   height: 31%;
 }
@@ -109,8 +123,46 @@
 
 .percentage {
   padding: 27px;
-  overflow: scroll;
+  width: 40%;
+  /* border: 2px solid black; */
+  /* padding: 20px; */
+  /* border-radius: 10px;
+  box-shadow: 0 0 20px 1px rgba(58, 58, 58, 0.148); */
+  /* margin: 30px; */
+  /* overflow: scroll; */
 }
 /* .percentage::-webkit-scrollbar {
   display: none;
 } */
+
+.combined-charts {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  grid-column-start: 2;
+  grid-column-end: 4;
+  grid-row-start: 3;
+  /* padding: 20px;
+box-sizing: border-box; */
+  /* width: 800px; */
+}
+
+.expense.active {
+  background: white;
+  color: rgb(179, 0, 0);
+  box-shadow: 0 0 20px 0 rgba(179, 0, 0, 0.201);
+  /* border: 2px solid rgba(179, 0, 0, 0.639); */
+}
+.income.active {
+  background: white;
+  color: green;
+  box-shadow: 0 0 20px 0 rgba(0, 128, 0, 0.217);
+  /* border: 2px solid rgba(0, 128, 0, 0.626); */
+}
+.total.active {
+  background: white;
+  box-shadow: 0 0 20px 0 rgba(0, 100, 128, 0.18);
+  /* border: 2px solid rgba(48, 48, 48, 0.699); */
+
+  color: black;
+}

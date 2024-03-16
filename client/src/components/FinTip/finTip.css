@@ -1,0 +1,9 @@
+.card-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.card-main > * {
+  margin: 20px 0;
+}
