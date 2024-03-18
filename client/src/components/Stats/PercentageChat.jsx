@@ -37,7 +37,7 @@ const PercentageComp = ({ type }) => {
       <div className="percent-comp-contain">
         {perChartArray.map((user, id) => (
           <div className="percentage-comp" key={id}>
-            <div className="left">
+            <div className="percent-left">
               <span
                 className="show-percentage"
                 style={{ backgroundColor: calculateColor(id) }}
@@ -46,7 +46,7 @@ const PercentageComp = ({ type }) => {
               </span>
               <span>{user.category_type}</span>
             </div>
-            <span className="right">₹{user.amount}</span>
+            <span className="percent-right">₹{user.amount}</span>
           </div>
         ))}
       </div>

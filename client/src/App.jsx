@@ -1,6 +1,6 @@
 // App.js
 import React, { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./components/Home/Home";
 // import SignIn from "./components/SignIn";
 // import SignUp from "./components/SignUp";
@@ -13,6 +13,8 @@ import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import EditProfile from "./components/Profile/EditProfile";
 import "./App.css";
 import FinTip from "./components/FinTip/FinTip";
+import ReadMore from "./components/FinTip/ReadMore";
+import Footer from "./components/Footer/Footer";
 const App = () => {
   // useEffect(() => {
   //   const token = localStorage.getItem("jwtToken");
@@ -39,6 +41,7 @@ const App = () => {
             <>
               <SideNavbar />
               <Home />
+              <Footer />
             </>
           }
         />
@@ -50,6 +53,7 @@ const App = () => {
             <>
               <SideNavbar />
               <Profile />
+              {/* <Footer /> */}
             </>
           }
         />
@@ -59,6 +63,7 @@ const App = () => {
             <>
               <SideNavbar />
               <EditProfile />
+              {/* <Footer /> */}
             </>
           }
         />
@@ -68,6 +73,7 @@ const App = () => {
             <>
               <SideNavbar />
               <Stats />
+              {/* <Footer /> */}
             </>
           }
         />
@@ -77,6 +83,17 @@ const App = () => {
             <>
               <SideNavbar />
               <FinTip />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/readmore/:id"
+          element={
+            <>
+              <SideNavbar />
+              <ReadMore />
+              <Footer />
             </>
           }
         />
@@ -89,6 +106,7 @@ const App = () => {
             </>
           }
         /> */}
+        <Route path="*" element={<Navigate replace to="/getstarted" />} />
       </Routes>
     </>
   );

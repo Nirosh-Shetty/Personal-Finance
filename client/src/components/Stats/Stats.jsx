@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import Charts from "./Charts";
 import "./stats.css";
 
 import React, { useEffect, useState } from "react";
 
 export default function Stats() {
+  const navigate = useNavigate();
   const [data, setdata] = useState();
   const [currentStatsType, setcurrentStatsType] = useState("total");
   // const [total, settotal] = useState();
@@ -19,6 +21,7 @@ export default function Stats() {
       },
     })
       .then((response) => {
+        if (!response.ok) navigate("/getstarted");
         return response.json();
       })
       .then((data) => {

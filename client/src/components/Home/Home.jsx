@@ -21,7 +21,7 @@ import MenuItem from "@mui/material/MenuItem";
 import "./home.css";
 import Table from "./Table";
 
-import toast, { Toaster } from "react-hot-toast";
+// import toast, { Toaster } from "react-hot-toast";
 
 import { useRecoilState } from "recoil";
 import { transactionAtom } from "../../recoil/atom/transactionAtom";
@@ -179,7 +179,7 @@ const IEbox = ({ ttype, data }) => {
         return response.json();
       })
       .then((data) => {
-        toast.success("Transactin added succesfully");
+        // toast.success("Transactin added succesfully");
         setTransaction((prev) => ({
           type: ttype,
           time: dayjs().toISOString(),
@@ -189,7 +189,7 @@ const IEbox = ({ ttype, data }) => {
         }));
       })
       .catch((error) => {
-        toast.error("Error in adding the Transaction!");
+        // toast.error("Error in adding the Transaction!");
         console.log(error);
       });
   };

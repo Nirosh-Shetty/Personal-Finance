@@ -50,13 +50,13 @@ const SignIn = () => {
         <h1 className="h1">Sign in</h1>
         <div className="social-container">
           <a href="#" className="social a">
-            <i className="fab fa-facebook-f" />
+            <i className="  fa-facebook-f" />
           </a>
           <a href="#" className="social a">
-            <i className="fab fa-google-plus-g" />
+            <i className="  fa-google-plus-g" />
           </a>
           <a href="#" className="social a">
-            <i className="fab fa-linkedin-in" />
+            <i className="  fa-linkedin-in" />
           </a>
         </div>
         <span className="span">or use your account</span>

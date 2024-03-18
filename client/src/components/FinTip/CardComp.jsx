@@ -1,44 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./cardComp.css";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const BlogPost = () => {
+const colors = [
+  "#7fb3d5", // Light blue
+  "#85c1a9", // Light green
+  "#e5989b", // Light red
+  "#f4d03f", // Light yellow
+  "#7fb3d5", // Light teal
+  "#c39bd3", // Light purple
+  "#f4a460", // Light orange
+  "#7fb3d5", // Light cyan
+  "#85c1a9", // Light indigo
+  "#f1948a", // Light pink
+  "#bdc3c7", // Light gray
+  "#909497", // Light dark gray
+];
+
+const CardComp = ({ data }) => {
+  const [bgColor, setbgColor] = useState();
+
+  useEffect(() => {
+    setbgColor(colors[data.id % colors.length]);
+    // () => {
+    // let id = data.id;
+    // if (data.id > colors.length) {
+    // return colors[data.id % colors.length];
+    // } else return colors[id];
+    // });
+  }, [data.id]);
+
   return (
     <div className="card-container">
       {/* <span className="s1">blog</span>
       <span className="s2">card</span> */}
       <div className="card">
         <div className="thumbnail">
-          <img
-            className="left"
-            src="https://cdn2.hubspot.net/hubfs/322787/Mychefcom/images/BLOG/Header-Blog/photo-culinaire-pexels.jpg"
-            alt="Thumbnail"
-          />
+          <img className="left" src={data.thumbnail} alt="Thumbnail" />
         </div>
         <div className="right">
-          <h1 className="card-h1">
-            Why you Need More Magnesium in Your Daily Diet
-          </h1>
-          <div className="author">
-            <img
-              src="https://randomuser.me/api/portraits/men/95.jpg"
-              alt="Author"
-            />
-            <h2 className="card-h2">Igor MARTY</h2>
+          <h1 className="card-h1">{data.title}</h1>
+          <div className="author" style={{ backgroundColor: bgColor }}>
+            <img src={data.authorImg} alt="Author" />
+            <h2 className="card-h2">{data.author}</h2>
           </div>
           <div className="separator"></div>
-          <p className="card-p">
-            Magnesium is one of the six essential macro-minerals that is
-            required by the body for energy production and synthesis of protein
-            and enzymes. It contributes to the development of bones and most
-            importantly it is responsible for synthesis of your DNA and RNA. A
-            new report that has appeared in the British Journal of Cancer, gives
-            you another reason to add more magnesium to your diet...
-          </p>
-          <h5 className="card-h5">12</h5>
-          <h6 className="card-h6">JANUARY</h6>
+          <p className="card-p">{data.shortDescription}</p>
+          <div className="time">
+            <h5 className="card-h5">{data.date}</h5>
+            <h6 className="card-h6">
+              {data.month} <span className="year">{data.year}</span>
+            </h6>
+          </div>
           <ul className="card-ul">
             {/* <li className='card-li'>
               <i className="fa fa-eye fa-2x"></i>
@@ -46,16 +61,16 @@ const BlogPost = () => {
             <li className="card-li">
               <i className="fa fa-heart-o fa-2x"></i>
             </li>
-            <li className="card-li">
+            {/* <li className="card-li">
               <i className="fa fa-envelope-o fa-2x"></i>
-            </li>
+            </li> */}
             <li className="card-li">
               <i className="fa fa-share-alt fa-2x"></i>
             </li>
           </ul>
-        </div>{" "}
+        </div>
         <div className="fab">
-          <Link>
+          <Link to={`/readmore/${data.id}`} state={{ bgColor }}>
             <ExpandMoreIcon
               sx={{ scale: "5", paddingTop: "4px", color: "white" }}
             />
@@ -66,4 +81,4 @@ const BlogPost = () => {
   );
 };
 
-export default BlogPost;
+export default CardComp;

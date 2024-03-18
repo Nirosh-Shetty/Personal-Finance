@@ -7,3 +7,21 @@
 .card-main > * {
   margin: 20px 0;
 }
+
+.loadmore {
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.507);
+  width: 13%;
+  margin: 30px auto 0 auto;
+  padding: 8px 13px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  /* box-shadow: 0 0 20px 1px rgba(50, 50, 50, 0.176); */
+  transition-delay: 0.1s;
+  transition: 0.2s;
+}
+.loadmore:hover {
+  color: black;
+  border-color: black;
+}

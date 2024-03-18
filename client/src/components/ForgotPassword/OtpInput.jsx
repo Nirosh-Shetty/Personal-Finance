@@ -10,7 +10,7 @@ export default function ValidationTextFields() {
     setotp(e.target.value);
   };
 
-  React.useEffect(() => {
+  const handleBlur = () => {
     fetch("http://localhost:8000/api/forgot/otpverify", {
       method: "POST",
       headers: {
@@ -23,7 +23,7 @@ export default function ValidationTextFields() {
         sethelperText(data.message); // Assuming the response has a 'message' property
       })
       .catch((error) => console.log("error in fetching : ", error));
-  }, [otp]);
+  };
 
   return (
     <Box
@@ -40,6 +40,8 @@ export default function ValidationTextFields() {
           id="demo-helper-text-aligned"
           label={helperText}
           onChange={handleChange}
+          onBlur={handleBlur}
+          type="number"
         />
       </div>
       {}

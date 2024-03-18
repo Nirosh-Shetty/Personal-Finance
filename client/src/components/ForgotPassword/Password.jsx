@@ -1,12 +1,22 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Stack from "@mui/joy/Stack";
 import Input from "@mui/joy/Input";
 import LinearProgress from "@mui/joy/LinearProgress";
 import Typography from "@mui/joy/Typography";
 import Key from "@mui/icons-material/Key";
+import { password } from "../../recoil/atom/password";
+import { useRecoilState } from "recoil";
+export default function Password({ placeholder, displayState, name }) {
+  const [pass, setPass] = useRecoilState(password);
+  // const [password, setpassword] = useState();
+  // const [confrimPassword, setconfrimPassword] = useState();
 
-export default function Password({ placeholder, displayState }) {
   const [value, setValue] = React.useState("");
+  useEffect(() => {
+    setPass((prev) => {
+      return { ...prev, [name]: value };
+    });
+  }, [value]);
   const minLength = 12;
   return (
     <Stack
@@ -18,6 +28,7 @@ export default function Password({ placeholder, displayState }) {
     >
       <Input
         type="password"
+        name={name}
         placeholder={placeholder}
         startDecorator={<Key />}
         value={value}

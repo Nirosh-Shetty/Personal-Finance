@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 export const signUp = async (req, res) => {
   try {
     const signupDetails = req.body;
-    console.log(signupDetails);
     const emailCheckQuery = "SELECT * FROM users WHERE email = $1";
     const emailCheckResult = await pool.query(emailCheckQuery, [
       signupDetails.email,

@@ -21,10 +21,10 @@ span.s2 {
 } */
 
 /* My hum... body.. yeah.. */
-body {
+/* body {
   background-color: #353b3f;
   font-family: "Roboto", sans-serif;
-}
+} */
 
 .card-container {
 }
@@ -36,7 +36,7 @@ body {
   width: 900px;
   margin: 50px auto;
   background-color: #fff;
-  box-shadow: 10px 10px 93px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 53px 0px rgba(0, 0, 0, 0.502);
 }
 
 /* Image on the left side */
@@ -49,6 +49,7 @@ body {
   width: 530px;
   box-shadow: 10px 10px 60px 0px rgba(0, 0, 0, 0.75);
   overflow: hidden;
+  border-radius: 8px;
 }
 
 img.left {
@@ -58,6 +59,8 @@ img.left {
   height: auto;
   width: 100%;
   transform: translate(-50%, -50%);
+  border-radius: 8px;
+  /* object-fit: fill; */
 }
 
 /* Right side of the card */
@@ -68,7 +71,7 @@ img.left {
 
 .card-h1 {
   padding-top: 15px;
-  font-size: 2rem;
+  font-size: 2.8rem;
   color: #4b4b4b;
   font-weight: bolder;
 }
@@ -99,7 +102,7 @@ img.left {
   text-align: right;
   font-size: 0.8rem;
   color: white;
-  padding-bottom: 6px;
+  padding: 0 5px 8px 0;
 }
 
 .separator {
@@ -117,28 +120,44 @@ img.left {
 }
 
 /* DATE of release */
-.card-h5 {
+
+.time {
+  /* display: flex; */
+  /* flex-direction: column; */
   position: absolute;
   left: 75px;
-  top: 295px;
-  font-size: 9rem;
+  top: 290px;
   color: #c3c3c3;
+  height: 10px;
+}
+.card-h5 {
+  /* position: absolute;
+  left: 75px;
+  top: 295px; */
+  font-size: 9rem;
   font-weight: bolder;
 }
 
 .card-h6 {
-  position: absolute;
-  left: 75px;
-  top: 390px;
+  position: relative;
+  /* left: 75px; */
+  top: -15px;
   font-size: 3rem;
-  color: #c3c3c3;
+  font-weight: bold;
+}
+
+.year {
+  /* position: absolute;
+  left: 215px;
+  top: 400px; */
+  font-size: 1.7rem;
   font-weight: bold;
 }
 
 /* Those futur buttons */
 .card-ul {
   position: absolute;
-  left: 380px;
+  left: 450px;
   top: 390px;
   display: flex;
   align-items: center;

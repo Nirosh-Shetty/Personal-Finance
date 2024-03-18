@@ -1,15 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 
+import { password } from "../../recoil/atom/password";
+import { useRecoilState } from "recoil";
+
 export default function InputSubscription() {
+  const [pass, setPass] = useRecoilState(password);
+
   const [email, setemail] = useState();
   const onEmailChange = (e) => {
     setemail(e.target.value);
   };
+  useEffect(() => {
+    setPass((prev) => {
+      return { ...prev, email: email };
+    });
+  }, [email]);
+
   const onEmailSubmit = (e) => {
     e.preventDefault();
     fetch("http://localhost:8000/api/forgot/emailcheck", {

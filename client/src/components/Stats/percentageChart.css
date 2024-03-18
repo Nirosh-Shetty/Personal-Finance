@@ -17,14 +17,12 @@
   margin: 0px 8px 0px 5px;
 }
 
-.left {
+.percent-left {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   margin-bottom: 14px;
 }
-
-
 
 .percent-comp-contain {
   overflow: scroll;
