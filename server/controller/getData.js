@@ -1,5 +1,5 @@
 import pool from "../database/db.js";
-
+import fs from "fs";
 export const homeData = async (req, res) => {
   const userId = req.user.userid;
   const transactionQuery = `
@@ -198,8 +198,7 @@ export const getuserdata = async (req, res) => {
   const userId = req.user.userid;
 
   const query = `
-  SELECT username, email,name,phone,gender,address,aboutus, TO_CHAR(dob, 'DD Month YYYY') AS dob,biophoto
-  FROM users
+  SELECT username, email,name,phone,gender,address,aboutus, TO_CHAR(dob, 'DD Month YYYY') AS dob, pfp_path FROM users
   WHERE userid = $1
 `;
 
@@ -210,7 +209,19 @@ export const getuserdata = async (req, res) => {
     }
 
     const userDetails = result.rows[0];
-    console.log(userDetails);
+    // console.log(userDetails);
+    const imagePath = userDetails.pfp_path;
+    if (fs.existsSync(imagePath)) {
+      // Read the image file from the file system
+      const imageData = fs.readFileSync(imagePath, { encoding: "base64" });
+      const base64Image = Buffer.from(imageData).toString("base64");
+      userDetails.imageData = base64Image;
+
+      delete userDetails.pfp_path;
+      console.log(userDetails);
+    } else {
+      console.error("Image not found:", imagePath);
+    }
     res.status(201).json(userDetails);
   } catch (error) {
     console.error("Error fetching user details:", error);

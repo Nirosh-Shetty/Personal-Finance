@@ -37,7 +37,7 @@ const CardComp = ({ data }) => {
       {/* <span className="s1">blog</span>
       <span className="s2">card</span> */}
       <div className="card">
-        <div className="thumbnail">
+        <div className="card-thumbnail">
           <img className="left" src={data.thumbnail} alt="Thumbnail" />
         </div>
         <div className="right">

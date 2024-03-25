@@ -40,7 +40,7 @@ span.s2 {
 }
 
 /* Image on the left side */
-.thumbnail {
+.card-thumbnail {
   float: left;
   position: relative;
   left: 30px;

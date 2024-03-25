@@ -46,8 +46,14 @@ const Profile = () => {
   }, []);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEditedUserData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, files } = e.target;
+    if (name === "pfp") {
+      const file = files[0]; // Access the files array correctly
+      console.log(file); // Get the selected file
+      setEditedUserData((prev) => ({ ...prev, pfp: file })); // Update editedUserData with the file
+    } else {
+      setEditedUserData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleCancel = () => {
@@ -56,13 +62,23 @@ const Profile = () => {
   };
 
   const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    for (const key in editedUserData) {
+      if (key === "pfp") {
+        formData.append(key, editedUserData.pfp); // Append the file directly
+      } else {
+        formData.append(key, editedUserData[key]);
+      }
+    }
+    // console.log(formData); // Log the formData object before sending the request
+    console.log(editedUserData);
     fetch("http://localhost:8000/api/profileupdated", {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
       },
-      body: JSON.stringify(editedUserData),
+      body: formData,
     })
       .then((response) => {
         if (response.ok) {
@@ -88,10 +104,11 @@ const Profile = () => {
             <div className="panel">
               <div className="user-heading round">
                 <a href="#">
-                  <img
+                  {/* <img
                     src="https://bootdey.com/img/Content/avatar/avatar3.png"
                     alt=""
-                  />
+                  /> */}
+                  <input type="file" name="pfp" id="" onChange={handleChange} />
                 </a>
                 <h1>{editedUserData.username}</h1>
                 <p>{editedUserData.email}</p>
@@ -107,11 +124,11 @@ const Profile = () => {
                     <i className="fa fa-edit"></i> Edit profile
                   </a>
                 </li>
-                <li>
+                {/* <li>
                   <a href="#">
                     <i className="fa fa-cog"></i> Settings
                   </a>
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>

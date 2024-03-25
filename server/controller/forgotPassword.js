@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 import bcrypt from "bcryptjs";
 
 const generatedOTP = Math.floor(10000 + Math.random() * 90000);
-
+console.log(generatedOTP);
 export const emailcheck = async (req, res) => {
   const { email } = req.body;
 

@@ -24,6 +24,8 @@ router.post("/forgot/emailcheck", emailcheck);
 
 router.post("/forgot/otpverify", otpVerify);
 
+// router.prototype('/updatepfp',UpdatePfp)
+
 // router.post("/addcatagory", (req, res) => {
 //   const { label } = req.body;
 //   console.log(label);

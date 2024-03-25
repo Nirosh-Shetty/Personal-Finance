@@ -9,7 +9,6 @@ export const updateProfile = async (req, res) => {
   WHERE userid = $8
   `;
   try {
-    console.log("bbbbbbbbbbbb");
     await pool.query(updateQuery, [
       name,
       email,
