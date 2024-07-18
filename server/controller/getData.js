@@ -209,19 +209,21 @@ export const getuserdata = async (req, res) => {
     }
 
     const userDetails = result.rows[0];
-    // console.log(userDetails);
-    const imagePath = userDetails.pfp_path;
-    if (fs.existsSync(imagePath)) {
-      // Read the image file from the file system
-      const imageData = fs.readFileSync(imagePath, { encoding: "base64" });
-      const base64Image = Buffer.from(imageData).toString("base64");
-      userDetails.imageData = base64Image;
 
-      delete userDetails.pfp_path;
-      console.log(userDetails);
-    } else {
-      console.error("Image not found:", imagePath);
-    }
+    // console.log(userDetails);
+    // const imagePath = userDetails.pfp_path;
+    // if (fs.existsSync(imagePath)) {
+    // Read the image file from the file system
+    // console.log("imagr found");
+    // const imageData = fs.readFileSync(imagePath, { encoding: "base64" });
+    // const base64Image = Buffer.from(imageData).toString("base64");
+    // userDetails.imageData = base64Image;
+
+    // delete userDetails.pfp_path;
+    // console.log(userDetails);
+    // } else {
+    //   console.error("Image not found:", imagePath);
+    // }
     res.status(201).json(userDetails);
   } catch (error) {
     console.error("Error fetching user details:", error);

@@ -116,7 +116,11 @@ const Category = ({ handleOnChange, data }) => {
       >
         {/* {console.log(data)} */}
         {data.map((arr, ind) => {
-          return <MenuItem value={arr.categoryId}>{arr.category}</MenuItem>;
+          return (
+            <MenuItem value={arr.categoryId} key={ind}>
+              {arr.category}
+            </MenuItem>
+          );
         })}
       </Select>
     </FormControl>
@@ -278,7 +282,7 @@ const Home = () => {
       return;
     }
   };
-  console.log(fetchedData + "adasda");
+  // console.log(fetchedData + "adasda");
   const notType = type === "income" ? "expense" : "income";
   const welcomeText =
     notType === "income"

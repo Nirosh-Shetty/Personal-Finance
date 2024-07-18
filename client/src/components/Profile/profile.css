@@ -26,14 +26,16 @@ body {
   text-align: center;
 }
 
-.profile-nav .user-heading.round a {
+.profile-nav .user-heading.round label {
   border-radius: 50%;
   -webkit-border-radius: 50%;
   border: 10px solid rgba(255, 255, 255, 0.3);
   display: inline-block;
+  margin-left: 40px;
+  margin-bottom: 35px;
 }
 
-.profile-nav .user-heading a img {
+.profile-nav .user-heading label img {
   width: 112px;
   height: 112px;
   border-radius: 50%;
@@ -387,4 +389,16 @@ ul.summary-list > li:last-child {
   outline: none;
   padding: 8px;
   border: none;
+}
+
+/* edit profile styles */
+#edit-pfp {
+  /* display: ; */
+  display: none;
+}
+
+#edit-pfp-label {
+  position: absolute;
+  top: 100px;
+  left: 100px;
 }

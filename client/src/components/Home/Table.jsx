@@ -7,6 +7,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import Box from "@mui/joy/Box";
+import Button from "@mui/joy/Button";
 import {
   ArrowDropDown as ArrowDropDownIcon,
   ArrowDropUp as ArrowDropUpIcon,
@@ -17,11 +19,12 @@ const columns = [
   { id: "time", label: "Time", minWidth: 170, align: "left" },
   { id: "category_name", label: "Category", minWidth: 170 },
   { id: "note", label: "Note", minWidth: 170 },
+  { id: "", label: "", minWidth: 170 },
 ];
 
 export default function CustomTable({ data }) {
   const [sortedData, setSortedData] = React.useState([]);
-
+  // console.log(data);
   React.useEffect(() => {
     // Sort data by time
     const sorted = data
@@ -41,7 +44,6 @@ export default function CustomTable({ data }) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
   return (
     <Paper
       sx={{
@@ -63,7 +65,7 @@ export default function CustomTable({ data }) {
                     minWidth: column.minWidth,
                     color: "white",
                     background: "black",
-                    fontSize: "2rem",
+                    fontSize: "2.2rem",
                     height: "60px",
                   }}
                 >
@@ -111,13 +113,41 @@ export default function CustomTable({ data }) {
                     {row.amount}
                   </TableCell>
                   <TableCell align="left" sx={{ fontSize: "1rem" }}>
-                    {row.time}
+                    {new Date(row.time).toLocaleString("en-IN", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
                   </TableCell>
                   <TableCell align="left" sx={{ fontSize: "1.2rem" }}>
                     {row.category_name}
                   </TableCell>
                   <TableCell align="left" sx={{ fontSize: "1.15rem" }}>
                     {row.note}
+                  </TableCell>
+                  <TableCell>
+                    <Box sx={{ display: "flex", gap: 1 }}>
+                      <Button
+                        size="sm"
+                        variant="plain"
+                        color="neutral"
+                        sx={{ fontSize: "1.2rem" }}
+                        // onClick={editTransaction}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="soft"
+                        color="primary"
+                        sx={{ fontSize: "1.2rem" }}
+                        // onClick={deleteTransaction}
+                      >
+                        Delete
+                      </Button>
+                    </Box>
                   </TableCell>
                 </TableRow>
               ))}

@@ -9,28 +9,28 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const userid = req.user.userid;
-    cb(null, file.fieldname + "-" + userid + path.extname(file.originalname));
+    cb(null, file.fieldname + "-" + userid + ".jpg");
   },
 });
 export const upload = multer({ storage });
 
-export const handleFileUpload = async (req, res, next) => {
-  const userId = req.user.userid;
-  const imagePath = req.file.path;
+// export const handleFileUpload = async (req, res, next) => {
+//   const userId = req.user.userid;
+//   const imagePath = req.file.path;
+//   // console.log(imagePath);
+//   try {
+//     // Update the user's record in the database with the image path
+//     const updateQuery = `
+//       UPDATE users
+//       SET pfp_path = $1
+//       WHERE userid = $2
+//     `;
+//     await pool.query(updateQuery, [imagePath, userId]);
 
-  try {
-    // Update the user's record in the database with the image path
-    const updateQuery = `
-      UPDATE users
-      SET pfp_path = $1
-      WHERE userid = $2
-    `;
-    await pool.query(updateQuery, [imagePath, userId]);
-
-    // Continue to the next middleware
-    next();
-  } catch (error) {
-    console.error("Error updating user's image path:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
+//     // Continue to the next middleware
+//     next();
+//   } catch (error) {
+//     console.error("Error updating user's image path:", error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// };

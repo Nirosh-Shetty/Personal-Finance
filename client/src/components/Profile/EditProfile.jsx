@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./profile.css";
 import Button from "@mui/joy/Button";
@@ -8,6 +8,7 @@ import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 
 import DialogActions from "@mui/material/DialogActions";
+import EditIcon from "@mui/icons-material/Edit";
 
 import Slide from "@mui/material/Slide";
 
@@ -17,6 +18,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const Profile = () => {
   const navigate = useNavigate();
+  const pfpRef = useRef();
   const [editedUserData, setEditedUserData] = useState();
   const [backupData, setbackupData] = useState();
   const [open, setOpen] = useState(false);
@@ -46,13 +48,24 @@ const Profile = () => {
   }, []);
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === "pfp") {
-      const file = files[0]; // Access the files array correctly
-      console.log(file); // Get the selected file
-      setEditedUserData((prev) => ({ ...prev, pfp: file })); // Update editedUserData with the file
-    } else {
-      setEditedUserData((prev) => ({ ...prev, [name]: value }));
+    const { name, value } = e.target;
+
+    setEditedUserData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleChangePfp = (e) => {
+    const { files } = e.target;
+    const file = files[0]; // Access the files array correctly
+    console.log(file); // Get the selected file
+    setEditedUserData((prev) => ({ ...prev, pfp: file }));
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        const img = pfpRef.current;
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -103,13 +116,17 @@ const Profile = () => {
           <div className="profile-nav col-md-3">
             <div className="panel">
               <div className="user-heading round">
-                <a href="#">
-                  {/* <img
-                    src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                    alt=""
-                  /> */}
-                  <input type="file" name="pfp" id="" onChange={handleChange} />
-                </a>
+                <label htmlFor="edit-pfp">
+                  {/* <a href="#"> */}
+                  <img src={editedUserData.pfp_path} alt="" ref={pfpRef} />
+                  {/* </a> */}
+                </label>
+                <input
+                  type="file"
+                  name="pfp"
+                  id="edit-pfp"
+                  onChange={handleChangePfp}
+                />
                 <h1>{editedUserData.username}</h1>
                 <p>{editedUserData.email}</p>
               </div>
