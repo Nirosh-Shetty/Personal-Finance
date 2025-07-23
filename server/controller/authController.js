@@ -52,8 +52,8 @@ export const signUp = async (req, res) => {
 export const signin = async (req, res) => {
   try {
     const { userInput, userPassword } = req.body;
-    const enUserPassword = await bcrypt.hash(userPassword, 8);
-    console.log(enUserPassword, userPassword, userInput);
+    // const enUserPassword = await bcrypt.hash(userPassword, 8);
+    // console.log(enUserPassword, userPassword, userInput);
     const dbQuery =
       "SELECT * FROM users WHERE username = $1 OR email = $1 OR phone = $1";
     const dbResult = await pool.query(dbQuery, [userInput]);
