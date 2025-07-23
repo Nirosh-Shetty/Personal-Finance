@@ -8,18 +8,22 @@ import RssFeedIcon from "@mui/icons-material/RssFeed"; // blog
 import HomeIcon from "@mui/icons-material/Home"; // home
 import ExpandLessIcon from "@mui/icons-material/ExpandLess"; //expand
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
+
 const SideNavbar = () => {
   const navbarRef = useRef();
   const navigate = useNavigate();
+
   const toggleFn = () => {
     // console.log("mouse over/out");
     navbarRef.current.classList.toggle("navbar-active");
   };
+
   const handleSignOut = () => {
-    console.log("cllll");
+    console.log("hi");
     navigate("/getstarted");
     localStorage.removeItem("jwtToken");
   };
+
   return (
     <>
       <div

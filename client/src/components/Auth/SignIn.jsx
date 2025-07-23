@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FacebookIcon, ChromeIcon, Linkedin } from "lucide-react";
+
 const SignIn = () => {
   const navigate = useNavigate();
   const [state, setState] = useState({
@@ -50,13 +52,14 @@ const SignIn = () => {
         <h1 className="h1">Sign in</h1>
         <div className="social-container">
           <a href="#" className="social a">
-            <i className="  fa-facebook-f" />
+            {/* <i className="  fa-facebook-f" /> */}
+            <FacebookIcon />
           </a>
           <a href="#" className="social a">
-            <i className="  fa-google-plus-g" />
+            <ChromeIcon />
           </a>
           <a href="#" className="social a">
-            <i className="  fa-linkedin-in" />
+            <Linkedin />
           </a>
         </div>
         <span className="span">or use your account</span>

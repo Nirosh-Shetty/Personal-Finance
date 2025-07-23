@@ -1,6 +1,9 @@
 import React from "react";
+
 import "./footer.css";
+
 import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <div className="margin-left footer-containter">
@@ -16,7 +19,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-bottom">
-        <h6>©2024 PersonalFinacne™</h6>
+        <h6>©2024 PersonalFinance™</h6>
       </div>
     </div>
   );
